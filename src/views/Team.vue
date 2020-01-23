@@ -3,11 +3,36 @@
         <el-button type="primary" @click="newTeamDialogVisible = true">添加队伍</el-button>
         <el-table :data="teamList" style="width: 100%" stripe>
             <el-table-column width="80" prop="ID" label="ID"/>
+            <el-table-column width="80" prop="Logo" label="Logo">
+                <template slot-scope="scope">
+                    <el-image style="width: 50px; height: 50px" :src="utils.baseURL + '/uploads/' + scope.row.Logo" fit="fill"/>
+                </template>
+            </el-table-column>
+
             <el-table-column prop="Name" label="队伍名"/>
             <el-table-column prop="Score" label="分数"/>
-            <el-table-column prop="SecretKey" label="Token"/>
+            <el-table-column width="300" prop="SecretKey" label="Token"/>
             <el-table-column prop="CreatedAt" label="创建时间"/>
             <el-table-column prop="UpdatedAt" label="更新时间"/>
+            <el-table-column label="操作">
+                <template slot-scope="scope">
+                    <el-button
+                            size="mini"
+                            @click="handleEdit(scope.$index, scope.row)">编辑
+                    </el-button>
+
+                    <el-popconfirm
+                            confirmButtonText='确定删除'
+                            cancelButtonText='取消'
+                            icon="el-icon-info"
+                            iconColor="red"
+                            title="这是一段内容确定删除吗？"
+                            @onConfirm="handleDelete(scope.row)"
+                    >
+                        <el-button size="mini" type="danger" slot="reference">删除</el-button>
+                    </el-popconfirm>
+                </template>
+            </el-table-column>
         </el-table>
 
         <!-- 添加队伍 -->
@@ -80,6 +105,7 @@
             onNewTeams() {
                 this.utils.POST('/manager/teams', this.newTeamForm).then(res => {
                     this.newTeamDialogVisible = false
+                    this.getTeams()
                     const h = this.$createElement;
                     var password = [h('p', null, '请保存队伍密码')]
                     res.forEach(item => {
@@ -89,6 +115,21 @@
                     this.$alert(h('p', null, password), '队伍密码', {
                         confirmButtonText: '我已确认保存'
                     });
+                }).catch(err => {
+                    this.$message({
+                        message: err,
+                        type: 'error'
+                    });
+                })
+            },
+
+            handleDelete(row) {
+                this.utils.DELETE("/manager/team?id=" + row.ID).then(res => {
+                    this.$message({
+                        message: res,
+                        type: 'success'
+                    });
+                    this.getTeams()
                 }).catch(err => {
                     this.$message({
                         message: err,
