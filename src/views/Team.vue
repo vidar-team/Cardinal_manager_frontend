@@ -26,7 +26,7 @@
                             cancelButtonText='取消'
                             icon="el-icon-info"
                             iconColor="red"
-                            title="这是一段内容确定删除吗？"
+                            title="您确定删除这支队伍吗？"
                             @onConfirm="handleDelete(scope.row)"
                     >
                         <el-button size="mini" type="danger" slot="reference">删除</el-button>
@@ -115,12 +115,7 @@
                     this.$alert(h('p', null, password), '队伍密码', {
                         confirmButtonText: '我已确认保存'
                     });
-                }).catch(err => {
-                    this.$message({
-                        message: err,
-                        type: 'error'
-                    });
-                })
+                }).catch(err => this.$message({message: err, type: 'error'}))
             },
 
             handleDelete(row) {
