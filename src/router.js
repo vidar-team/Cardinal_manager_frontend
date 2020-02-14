@@ -30,6 +30,11 @@ const router = new Router({
             name: 'GameBox',
             component: () => import('@/views/GameBox.vue')
         },
+        {
+            path: '/flag',
+            name: 'Flag',
+            component: () => import('@/views/Flag.vue')
+        },
     ]
 })
 

@@ -5,6 +5,7 @@
         <el-menu-item index="/team">队伍管理</el-menu-item>
         <el-menu-item index="/challenge">题目管理</el-menu-item>
         <el-menu-item index="/gamebox">靶机管理</el-menu-item>
+        <el-menu-item index="/flag">Flag 管理</el-menu-item>
     </el-menu>
 </template>
 

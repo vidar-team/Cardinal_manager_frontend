@@ -79,6 +79,11 @@
             onNewChallenge() {
                 this.utils.POST('/manager/challenge', this.newChallengeForm).then(res => {
                     this.newChallengeDialogVisible = false
+                    // 清空表单
+                    this.newChallengeForm = {
+                        Title: '',
+                        BaseScore: 1000,
+                    }
                     this.getChallenges()
                     this.$message({message: res, type: 'success'})
                 }).catch(err => this.$message({message: err, type: 'error'}))
