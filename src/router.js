@@ -35,6 +35,11 @@ const router = new Router({
             name: 'Flag',
             component: () => import('@/views/Flag.vue')
         },
+        {
+            path: '/bulletin',
+            name: 'Bulletin',
+            component: () => import('@/views/Bulletin.vue')
+        },
     ]
 })
 
