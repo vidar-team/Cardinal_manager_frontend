@@ -53,9 +53,7 @@
                         type: 'success'
                     });
                     this.$router.push('/')
-                }).catch(err => {
-                    this.$message.error(err);
-                })
+                }).catch(err => this.$message.error(err))
             },
 
             reset() {
@@ -69,13 +67,13 @@
 </script>
 
 <style scoped>
-    .box-card{
+    .box-card {
         margin: 0 auto;
         width: 500px;
         text-align: center;
     }
 
-    .header-text{
+    .header-text {
         font-size: 30px;
         font-weight: lighter;
     }

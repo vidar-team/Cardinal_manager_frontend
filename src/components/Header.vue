@@ -7,6 +7,7 @@
         <el-menu-item index="/gamebox">靶机管理</el-menu-item>
         <el-menu-item index="/flag">Flag 管理</el-menu-item>
         <el-menu-item index="/bulletin">公告管理</el-menu-item>
+        <el-menu-item index="/manager">账号管理</el-menu-item>
     </el-menu>
 </template>
 

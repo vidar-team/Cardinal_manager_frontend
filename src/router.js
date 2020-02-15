@@ -40,6 +40,11 @@ const router = new Router({
             name: 'Bulletin',
             component: () => import('@/views/Bulletin.vue')
         },
+        {
+            path: '/manager',
+            name: 'Manager',
+            component: () => import('@/views/Manager.vue')
+        },
     ]
 })
 
