@@ -62,7 +62,7 @@ export default {
     },
 
     FormatGoTime: (timeString) => {
-        return new Date(timeString.split('+')[0].replace('T', ' '))
+        return new Date(timeString).toLocaleString()
     },
 
     FormatTime: (timestamp) => {
