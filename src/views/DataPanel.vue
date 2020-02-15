@@ -21,7 +21,54 @@
             </el-col>
             <el-col :span="10">
                 <el-card shadow="always">
-                    数据
+                    <el-table
+                            :data="rank"
+                            stripe
+                            style="width: 100%"
+                            height="530"
+                            max-height="530"
+                            size="small">
+                        <el-table-column
+                                type="index"
+                                label="#"
+                                width="50">
+                        </el-table-column>
+                        <el-table-column
+                                prop="TeamName"
+                                label="队伍名"
+                        >
+                        </el-table-column>
+                        <el-table-column
+                                prop="Score"
+                                label="分数">
+                        </el-table-column>
+                        <el-table-column v-for="(header, index) in rankHeader" v-bind:key="index" :label="header">
+                            <template scope="scope">
+                                {{scope.row.GameBoxStatus[index].Score}}
+                            </template>
+                        </el-table-column>
+                    </el-table>
+                </el-card>
+                <br>
+                <el-card>
+                    <el-row :gutter="20">
+                        <el-col :span="6" class="panel">
+                            <p class="panel-data">{{ panel.SubmitFlag }}</p>
+                            <span class="panel-text">正确提交 Flag</span>
+                        </el-col>
+                        <el-col :span="6" class="panel">
+                            <p class="panel-data">{{ panel.CheckDown }}</p>
+                            <span class="panel-text">CheckDown 次数</span>
+                        </el-col>
+                        <el-col :span="6" class="panel">
+                            <p class="panel-data">{{ panel.MemAllocated }}</p>
+                            <span class="panel-text">占用内存</span>
+                        </el-col>
+                        <el-col :span="6" class="panel" style="border-right-width: 0;">
+                            <p class="panel-data">{{ panel.NumGoroutine }}</p>
+                            <span class="panel-text">Goroutine 数</span>
+                        </el-col>
+                    </el-row>
                 </el-card>
             </el-col>
         </el-row>
@@ -38,11 +85,16 @@
 
             startID: 0,
             logs: [],
+            rank: [],
+            rankHeader: [],
+            panel: {},
         }),
 
         mounted() {
-            this.getLogs()
-            this.timer = setInterval(this.getLogs, 5000)
+            this.loop()
+            this.timer = setInterval(() => {
+                this.loop()
+            }, 5000)
         },
 
         beforeDestroy() {
@@ -50,11 +102,29 @@
         },
 
         methods: {
+            loop() {
+                this.getLogs()
+                this.getRank()
+                this.getPanel()
+            },
             getLogs() {
                 this.loadingLog = true
                 this.utils.GET('/manager/logs').then(res => {
                     this.logs = res
                     this.loadingLog = false
+                }).catch(err => this.$message({message: err, type: 'error'}))
+            },
+
+            getRank() {
+                this.utils.GET('/manager/rank').then(res => {
+                    this.rank = res.Rank
+                    this.rankHeader = res.Title
+                }).catch(err => this.$message({message: err, type: 'error'}))
+            },
+
+            getPanel() {
+                this.utils.GET('/manager/panel').then(res => {
+                    this.panel = res
                 }).catch(err => this.$message({message: err, type: 'error'}))
             }
         }
@@ -70,13 +140,34 @@
     .system-log-time {
         color: #aaa;
     }
+
     .system-log-normal {
         color: #aaa;
     }
-    .system-log-warning{
+
+    .system-log-warning {
         color: orange;
     }
+
     .system-log-important {
         color: red;
+    }
+
+    .panel {
+        border: 0 solid #bbbbbb;
+        border-right-width: 1px;
+        text-align: center;
+    }
+
+    .panel-data {
+        text-align: center;
+        font-size: 30px;
+        color: #409EFF;
+    }
+
+    .panel-text {
+        text-align: center;
+        color: #3f3f3f;
+        font-size: 15px;
     }
 </style>
