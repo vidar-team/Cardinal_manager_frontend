@@ -5,7 +5,8 @@
             <el-table-column width="80" prop="ID" label="ID"/>
             <el-table-column width="80" prop="Logo" label="Logo">
                 <template slot-scope="scope">
-                    <el-image style="width: 50px; height: 50px" :src="utils.baseURL + '/uploads/' + scope.row.Logo" fit="fill"/>
+                    <el-image style="width: 50px; height: 50px" :src="utils.baseURL + '/uploads/' + scope.row.Logo"
+                              fit="fill"/>
                 </template>
             </el-table-column>
 
@@ -18,7 +19,8 @@
                 <template slot-scope="scope">
                     <el-button
                             size="mini"
-                            @click="handleEdit(scope.$index, scope.row)">编辑
+                            @click="()=>{editTeamForm = JSON.parse(JSON.stringify(scope.row)); editTeamDialogVisible = true}">
+                        编辑
                     </el-button>
 
                     <el-popconfirm
@@ -53,7 +55,7 @@
                             <el-form-item label="队伍 Logo">
                                 <el-upload name="picture" :action="utils.baseURL + '/manager/uploadPicture'"
                                            :headers="{'Authorization': token}"
-                                           :on-success="(response, file, fileList) => uploadSuccess(response, index)">
+                                           :on-success="(response) => {newTeamForm[index].Logo = response.data}">
                                     <el-button size="small" type="primary">点击上传</el-button>
                                     <div slot="tip" class="el-upload__tip">只能上传 jpg/png/gif 文件</div>
                                 </el-upload>
@@ -61,9 +63,29 @@
                         </el-col>
                     </el-form>
                 </el-row>
-
             </div>
             <el-button type="primary" @click="onNewTeams">添加队伍</el-button>
+        </el-dialog>
+
+        <!-- 修改队伍 -->
+        <el-dialog title="修改队伍" :visible.sync="editTeamDialogVisible">
+            <el-form label-width="80px">
+                <el-form-item label="队伍名">
+                    <el-input v-model="editTeamForm.Name"/>
+                    <el-input v-model="editTeamForm.Logo" size="mini" placeholder="图片 URL"/>
+                </el-form-item>
+                <el-form-item label="队伍 Logo">
+                    <el-upload name="picture" :action="utils.baseURL + '/manager/uploadPicture'"
+                               :headers="{'Authorization': token}"
+                               :on-success="(response) => {editTeamForm.Logo = response.data}">
+                        <el-button size="small" type="primary">点击上传</el-button>
+                        <div slot="tip" class="el-upload__tip">只能上传 jpg/png/gif 文件</div>
+                    </el-upload>
+                </el-form-item>
+                <el-form-item>
+                    <el-button type="primary" @click="onEditTeam">修改队伍</el-button>
+                </el-form-item>
+            </el-form>
         </el-dialog>
 
     </div>
@@ -72,20 +94,23 @@
 <script>
     export default {
         name: "Team",
-        data() {
-            return {
-                teamList: [],
-                newTeamDialogVisible: false,
-                editTeamDialogVisible: false,
+        data: () => ({
+            teamList: [],
+            newTeamDialogVisible: false,
+            editTeamDialogVisible: false,
 
-                token: localStorage.getItem('token'),
+            token: localStorage.getItem('token'),
 
-                newTeamForm: [{
-                    Name: '',
-                    Logo: '',
-                }],
+            newTeamForm: [{
+                Name: '',
+                Logo: '',
+            }],
+
+            editTeamForm: {
+                Name: '',
+                Logo: '',
             }
-        },
+        }),
 
         mounted() {
             this.getTeams()
@@ -96,10 +121,6 @@
                 this.utils.GET("/manager/teams").then(res => {
                     this.teamList = res
                 }).catch(err => this.$message.error(err))
-            },
-
-            uploadSuccess(response, index) {
-                this.newTeamForm[index].Logo = response.data
             },
 
             onNewTeams() {
@@ -115,6 +136,14 @@
                     this.$alert(h('p', null, password), '队伍密码', {
                         confirmButtonText: '我已确认保存'
                     });
+                }).catch(err => this.$message({message: err, type: 'error'}))
+            },
+
+            onEditTeam() {
+                this.utils.PUT('/manager/team', this.editTeamForm).then(res => {
+                    this.editTeamDialogVisible = false
+                    this.getTeams()
+                    this.$message.success(res)
                 }).catch(err => this.$message({message: err, type: 'error'}))
             },
 
