@@ -1,7 +1,7 @@
 <template>
     <div>
         <el-button type="primary" @click="generateFlag">生成 Flag</el-button>
-        <el-table :data="flagList" style="width: 100%" stripe>
+        <el-table :data="flagList" style="width: 100%" stripe v-loading="flagList === null">
             <el-table-column width="80" prop="ID" label="ID"/>
             <el-table-column width="80" prop="TeamID" label="所属队伍"/>
             <el-table-column width="80" prop="ChallengeID" label="所属题目"/>
@@ -23,7 +23,7 @@
             per: 15,
 
             total: 0,
-            flagList: []
+            flagList: null
         }),
 
         mounted() {

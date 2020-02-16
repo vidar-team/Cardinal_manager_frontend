@@ -1,14 +1,14 @@
 <template>
     <div>
         <el-button type="primary" @click="newChallengeDialogVisible = true">添加Challenge</el-button>
-        <el-table :data="challengeList" style="width: 100%" stripe>
+        <el-table :data="challengeList" style="width: 100%" stripe v-loading="challengeList === null">
             <el-table-column width="80" prop="ID" label="ID"/>
             <el-table-column prop="Title" label="题目名"/>
             <el-table-column prop="BaseScore" label="基础分数"/>
             <el-table-column prop="Visible" label="是否可见">
                 <template slot-scope="scope">{{scope.row.Visible}}</template>
             </el-table-column>
-            <el-table-column prop="CreatedAt" label="创建时间"/>
+            <el-table-column label="创建时间" width="200" :formatter="(row)=>utils.FormatGoTime(row.CreatedAt)"/>
             <el-table-column label="操作" width="300">
                 <template slot-scope="scope">
                     <el-popconfirm :title="'您确定要设置该题目状态为' + (scope.row.Visible ? '不':'') +'公开吗？'"
@@ -68,7 +68,7 @@
         name: "Challenge",
         data() {
             return {
-                challengeList: [],
+                challengeList: null,
                 newChallengeDialogVisible: false,
                 editChallengeDialogVisible: false,
 

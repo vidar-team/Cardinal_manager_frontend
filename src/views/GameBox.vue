@@ -1,7 +1,7 @@
 <template>
     <div>
         <el-button type="primary" @click="newGameBoxDialogVisible = true">添加GameBox</el-button>
-        <el-table :data="gameBoxList" style="width: 100%" stripe>
+        <el-table :data="gameBoxList" style="width: 100%" stripe v-loading="gameBoxList === null">
             <el-table-column width="80" prop="ID" label="ID"/>
             <el-table-column prop="ChallengeTitle" label="题目名"/>
             <el-table-column prop="TeamName" label="所属队伍"/>
@@ -15,12 +15,13 @@
             <el-table-column prop="IsAttacked" label="被攻陷">
                 <template slot-scope="scope">{{scope.row.IsAttacked}}</template>
             </el-table-column>
-            <el-table-column prop="CreatedAt" label="创建时间"/>
+            <el-table-column label="创建时间" width="200" :formatter="(row)=>utils.FormatGoTime(row.CreatedAt)"/>
             <el-table-column label="操作" width="300">
                 <template slot-scope="scope">
                     <el-button
                             size="mini"
-                            @click="handleEdit(scope.$index, scope.row)">编辑
+                            @click="()=>{editGameBoxForm = JSON.parse(JSON.stringify(scope.row)); editGameBoxDialogVisible = true}">
+                        编辑
                     </el-button>
                 </template>
             </el-table-column>
@@ -35,7 +36,8 @@
                     IP: '',
                     Port: '',
                     Description: ''
-                })">新增 GameBox</el-button>
+                })">新增 GameBox
+            </el-button>
             <el-divider/>
             <div v-for="(item, index) in newGameBoxForm" v-bind:key="index">
                 <el-row :gutter="20">
@@ -111,26 +113,61 @@
                 <el-button type="primary" @click="mutliGameBox">确定</el-button>
             </div>
         </el-dialog>
+
+        <!-- 修改 -->
+        <el-dialog title="修改 GameBox" :visible.sync="editGameBoxDialogVisible">
+            <el-form label-width="120px" v-if="editGameBoxDialogVisible">
+                <el-col :span="10">
+                    <el-form-item label="题目 Challenge">
+                        {{editGameBoxForm.ChallengeTitle}}
+                    </el-form-item>
+                </el-col>
+                <el-col :span="10">
+                    <el-form-item label="队伍 Team">
+                        {{editGameBoxForm.TeamName}}
+                    </el-form-item>
+                </el-col>
+                <el-col :span="10">
+                    <el-form-item label="IP">
+                        <el-input v-model="editGameBoxForm.IP" placeholder="请输入题目 IP"></el-input>
+                    </el-form-item>
+                </el-col>
+                <el-col :span="10">
+                    <el-form-item label="Port">
+                        <el-input v-model="editGameBoxForm.Port" placeholder="请输入题目端口"></el-input>
+                    </el-form-item>
+                </el-col>
+                <el-col :span="20">
+                    <el-form-item label="题目描述">
+                        <el-input type="textarea" :rows="3" placeholder="请输入题目描述" v-model="editGameBoxForm.Description">
+                        </el-input>
+                    </el-form-item>
+                </el-col>
+            </el-form>
+            <el-button type="primary" @click="onEditGameBox">修改 GameBox</el-button>
+        </el-dialog>
+
     </div>
 </template>
 
 <script>
     export default {
         name: "GameBox",
-        data() {
-            return {
-                newGameBoxDialogVisible: false,
-                mutliGameBoxDialogVisible: false,
+        data: () => ({
+            newGameBoxDialogVisible: false,
+            editGameBoxDialogVisible: false,
+            mutliGameBoxDialogVisible: false,
 
-                gameBoxList: [],
-                teams: [],
-                challenges: [],
+            gameBoxList: null,
+            teams: [],
+            challenges: [],
 
-                newGameBoxForm: [],
+            newGameBoxForm: [],
+            editGameBoxForm: null,
 
-                mutliGameBoxJSON: '',
-            }
-        },
+            mutliGameBoxJSON: '',
+
+        }),
         async mounted() {
             await this.getTeams()
             await this.getChallenges()
@@ -147,7 +184,10 @@
                         })
                         this.gameBoxList = gameBox
                         resolve()
-                    }).catch(err => {this.$message.error(err);resolve()})
+                    }).catch(err => {
+                        this.$message.error(err);
+                        resolve()
+                    })
                 })
             },
 
@@ -156,7 +196,10 @@
                     this.utils.GET("/manager/teams").then(res => {
                         this.teams = res
                         resolve()
-                    }).catch(err => {this.$message.error(err);resolve()})
+                    }).catch(err => {
+                        this.$message.error(err);
+                        resolve()
+                    })
                 })
             },
 
@@ -165,13 +208,16 @@
                     this.utils.GET("/manager/challenges").then(res => {
                         this.challenges = res
                         resolve()
-                    }).catch(err => {this.$message.error(err);resolve()})
+                    }).catch(err => {
+                        this.$message.error(err);
+                        resolve()
+                    })
                 })
             },
 
-            mutliGameBox(){
+            mutliGameBox() {
                 let backup = JSON.parse(JSON.stringify(this.newGameBoxForm))
-                try{
+                try {
                     let gameBoxes = JSON.parse(this.mutliGameBoxJSON)
                     gameBoxes.forEach((value) => {
                         this.newGameBoxForm.push({
@@ -184,13 +230,13 @@
                     })
                     this.mutliGameBoxDialogVisible = false
                     this.mutliGameBoxJSON = ''
-                }catch (e) {
+                } catch (e) {
                     this.$message.error('JSON 解析失败！')
                     this.newGameBoxForm = backup
                 }
             },
 
-            onNewGameBox(){
+            onNewGameBox() {
                 this.utils.POST('/manager/gameboxes', this.newGameBoxForm).then(res => {
                     this.newGameBoxDialogVisible = false
                     this.getGameBoxes()
@@ -198,20 +244,28 @@
                 }).catch(err => this.$message.error(err))
             },
 
-            getChallengeByID(id){
+            onEditGameBox() {
+                this.utils.PUT('/manager/gamebox', this.editGameBoxForm).then(res => {
+                    this.editGameBoxDialogVisible = false
+                    this.getGameBoxes()
+                    this.$message.success(res)
+                }).catch(err => this.$message.error(err))
+            },
+
+            getChallengeByID(id) {
                 let result = null;
                 this.challenges.forEach((value) => {
-                    if(value.ID === id){
+                    if (value.ID === id) {
                         result = value
                     }
                 })
                 return result
             },
 
-            getTeamByID(id){
+            getTeamByID(id) {
                 let result = null;
                 this.teams.forEach((value) => {
-                    if(value.ID === id){
+                    if (value.ID === id) {
                         result = value
                     }
                 })

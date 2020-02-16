@@ -1,16 +1,17 @@
 <template>
     <div>
         <el-button type="primary" @click="newBulletinDialogVisible = true">发布公告</el-button>
-        <el-table :data="bulletinList" style="width: 100%" stripe>
+        <el-table :data="bulletinList" style="width: 100%" stripe v-loading="bulletinList === null">
             <el-table-column width="80" prop="ID" label="ID"/>
             <el-table-column prop="Title" label="标题"/>
             <el-table-column prop="Content" label="内容"/>
-            <el-table-column prop="CreatedAt" label="创建时间"/>
+            <el-table-column label="创建时间" width="200" :formatter="(row)=>utils.FormatGoTime(row.CreatedAt)"/>
             <el-table-column label="操作" width="300">
                 <template slot-scope="scope">
                     <el-button
                             size="mini"
-                            @click="()=>{editBulletinForm = JSON.parse(JSON.stringify(scope.row)); editBulletinDialogVisible = true}">编辑
+                            @click="()=>{editBulletinForm = JSON.parse(JSON.stringify(scope.row)); editBulletinDialogVisible = true}">
+                        编辑
                     </el-button>
 
                     <el-popconfirm
@@ -34,7 +35,8 @@
                     <el-input v-model="newBulletinForm.Title"/>
                 </el-form-item>
                 <el-form-item label="内容">
-                    <el-input type="textarea" :rows="3" placeholder="请输入公告内容" v-model="newBulletinForm.Content"></el-input>
+                    <el-input type="textarea" :rows="3" placeholder="请输入公告内容"
+                              v-model="newBulletinForm.Content"></el-input>
                 </el-form-item>
             </el-form>
             <el-button type="primary" @click="onNewBulletin">发布</el-button>
@@ -47,7 +49,8 @@
                     <el-input v-model="editBulletinForm.Title"/>
                 </el-form-item>
                 <el-form-item label="内容">
-                    <el-input type="textarea" :rows="3" placeholder="请输入公告内容" v-model="editBulletinForm.Content"></el-input>
+                    <el-input type="textarea" :rows="3" placeholder="请输入公告内容"
+                              v-model="editBulletinForm.Content"></el-input>
                 </el-form-item>
             </el-form>
             <el-button type="primary" @click="handleEdit">修改公告</el-button>
@@ -83,7 +86,7 @@
                 }).catch(err => this.$message({message: err, type: 'error'}))
             },
 
-            onNewBulletin(){
+            onNewBulletin() {
                 this.utils.POST('/manager/bulletin', this.newBulletinForm).then(res => {
                     this.newBulletinDialogVisible = false
                     this.newBulletinForm = {

@@ -1,7 +1,7 @@
 <template>
     <div>
         <el-button type="primary" @click="newTeamDialogVisible = true">添加队伍</el-button>
-        <el-table :data="teamList" style="width: 100%" stripe>
+        <el-table :data="teamList" style="width: 100%" stripe v-loading="teamList === null">
             <el-table-column width="80" prop="ID" label="ID"/>
             <el-table-column width="80" prop="Logo" label="Logo">
                 <template slot-scope="scope">
@@ -13,8 +13,8 @@
             <el-table-column prop="Name" label="队伍名"/>
             <el-table-column prop="Score" label="分数"/>
             <el-table-column width="300" prop="SecretKey" label="Token"/>
-            <el-table-column prop="CreatedAt" label="创建时间"/>
-            <el-table-column prop="UpdatedAt" label="更新时间"/>
+            <el-table-column label="创建时间" width="200" :formatter="(row)=>utils.FormatGoTime(row.CreatedAt)"/>
+            <el-table-column label="更新时间" width="200" :formatter="(row)=>utils.FormatGoTime(row.UpdatedAt)"/>
             <el-table-column label="操作">
                 <template slot-scope="scope">
                     <el-button
@@ -95,7 +95,7 @@
     export default {
         name: "Team",
         data: () => ({
-            teamList: [],
+            teamList: null,
             newTeamDialogVisible: false,
             editTeamDialogVisible: false,
 
