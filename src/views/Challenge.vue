@@ -18,7 +18,7 @@
                     </el-popconfirm>
                     <el-button
                             size="mini"
-                            @click="handleEdit(scope.$index, scope.row)">编辑
+                            @click="()=>{editChallengeForm = JSON.parse(JSON.stringify(scope.row)); editChallengeDialogVisible = true}">编辑
                     </el-button>
                     <el-popconfirm
                             confirmButtonText='确定删除'
@@ -47,6 +47,19 @@
             <el-button type="primary" @click="onNewChallenge">添加题目</el-button>
         </el-dialog>
 
+        <!-- 修改 Challenge -->
+        <el-dialog title="修改 Challenge" :visible.sync="editChallengeDialogVisible">
+            <el-form :model="editChallengeForm" label-width="80px">
+                <el-form-item label="题目名">
+                    <el-input v-model="editChallengeForm.Title"/>
+                </el-form-item>
+                <el-form-item label="基础分数">
+                    <el-input-number v-model="editChallengeForm.BaseScore" :min="1"/>
+                </el-form-item>
+            </el-form>
+            <el-button type="primary" @click="onEditChallenge">修改题目</el-button>
+        </el-dialog>
+
     </div>
 </template>
 
@@ -57,8 +70,14 @@
             return {
                 challengeList: [],
                 newChallengeDialogVisible: false,
+                editChallengeDialogVisible: false,
 
                 newChallengeForm: {
+                    Title: '',
+                    BaseScore: 1000,
+                },
+
+                editChallengeForm: {
                     Title: '',
                     BaseScore: 1000,
                 },
@@ -84,6 +103,14 @@
                         Title: '',
                         BaseScore: 1000,
                     }
+                    this.getChallenges()
+                    this.$message({message: res, type: 'success'})
+                }).catch(err => this.$message({message: err, type: 'error'}))
+            },
+
+            onEditChallenge() {
+                this.utils.PUT('/manager/challenge', this.editChallengeForm).then(res => {
+                    this.editChallengeDialogVisible = false
                     this.getChallenges()
                     this.$message({message: res, type: 'success'})
                 }).catch(err => this.$message({message: err, type: 'error'}))
