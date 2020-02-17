@@ -7,7 +7,7 @@
             <el-table-column prop="TeamName" label="所属队伍"/>
             <el-table-column prop="IP" label="IP"/>
             <el-table-column prop="Port" label="端口"/>
-            <el-table-column prop="Score" label="分数"/>
+            <el-table-column prop="Score" label="分数" :formatter="(row) => utils.FormatFloat(row.Score)"/>
             <el-table-column prop="Description" label="题目介绍"/>
             <el-table-column prop="IsDown" label="Down">
                 <template slot-scope="scope">{{scope.row.IsDown}}</template>
@@ -26,6 +26,9 @@
                 </template>
             </el-table-column>
         </el-table>
+
+        <br>
+        <el-pagination  style="text-align:center" background layout="prev, pager, next" :total="total" :page-size="per" @current-change="(p)=>{page = p; getGameBoxes()}"></el-pagination>
 
         <!-- 添加 GameBox -->
         <el-dialog title="添加 GameBox" :visible.sync="newGameBoxDialogVisible">
@@ -167,6 +170,10 @@
 
             mutliGameBoxJSON: '',
 
+            page: 1,
+            per: 10,
+
+            total: 0,
         }),
         async mounted() {
             await this.getTeams()
@@ -176,13 +183,14 @@
         methods: {
             getGameBoxes() {
                 return new Promise((resolve) => {
-                    this.utils.GET("/manager/gameboxes?page=1&per=15").then(res => {
+                    this.utils.GET(`/manager/gameboxes?page=${this.page}&per=${this.per}`).then(res => {
                         let gameBox = res.Data
                         gameBox.forEach((value, index) => {
                             gameBox[index]['ChallengeTitle'] = this.getChallengeByID(value.ChallengeID)['Title']
                             gameBox[index]['TeamName'] = this.getTeamByID(value.TeamID)['Name']
                         })
                         this.gameBoxList = gameBox
+                        this.total = res.Total
                         resolve()
                     }).catch(err => {
                         this.$message.error(err);
@@ -240,6 +248,8 @@
                 this.utils.POST('/manager/gameboxes', this.newGameBoxForm).then(res => {
                     this.newGameBoxDialogVisible = false
                     this.getGameBoxes()
+                    // 清空表单
+                    this.newGameBoxForm = []
                     this.$message({message: res, type: 'success'})
                 }).catch(err => this.$message.error(err))
             },

@@ -61,6 +61,10 @@ export default {
         })
     },
 
+    FormatFloat: (number) => {
+        return Number(number).toFixed(2)
+    },
+
     FormatGoTime: (timeString) => {
         return new Date(timeString).toLocaleString()
     },

@@ -40,11 +40,13 @@
                         </el-table-column>
                         <el-table-column
                                 prop="Score"
-                                label="分数">
+                                label="分数"
+                                :formatter="(row) => utils.FormatFloat(row.Score)"
+                        >
                         </el-table-column>
                         <el-table-column v-for="(header, index) in rankHeader" v-bind:key="index" :label="header">
                             <template scope="scope">
-                                {{scope.row.GameBoxStatus[index].Score}}
+                                {{utils.FormatFloat(scope.row.GameBoxStatus[index].Score)}}
                             </template>
                         </el-table-column>
                     </el-table>

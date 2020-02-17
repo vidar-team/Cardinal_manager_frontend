@@ -89,6 +89,7 @@
             onNewBulletin() {
                 this.utils.POST('/manager/bulletin', this.newBulletinForm).then(res => {
                     this.newBulletinDialogVisible = false
+                    // 清空表单
                     this.newBulletinForm = {
                         Title: '',
                         Content: ''

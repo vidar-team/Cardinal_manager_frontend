@@ -11,7 +11,7 @@
             </el-table-column>
 
             <el-table-column prop="Name" label="队伍名"/>
-            <el-table-column prop="Score" label="分数"/>
+            <el-table-column prop="Score" label="分数" :formatter="(row) => utils.FormatFloat(row.Score)"/>
             <el-table-column width="300" prop="SecretKey" label="Token"/>
             <el-table-column label="创建时间" width="200" :formatter="(row)=>utils.FormatGoTime(row.CreatedAt)"/>
             <el-table-column label="更新时间" width="200" :formatter="(row)=>utils.FormatGoTime(row.UpdatedAt)"/>
@@ -127,6 +127,12 @@
                 this.utils.POST('/manager/teams', this.newTeamForm).then(res => {
                     this.newTeamDialogVisible = false
                     this.getTeams()
+                    // 清空表单
+                    this.newTeamForm = [{
+                        Name: '',
+                        Logo: '',
+                    }]
+
                     const h = this.$createElement;
                     var password = [h('p', null, '请保存队伍密码')]
                     res.forEach(item => {
