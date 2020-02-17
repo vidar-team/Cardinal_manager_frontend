@@ -1,6 +1,7 @@
 <template>
-    <el-menu :default-active="this.$route.path" mode="horizontal" :router="true" background-color="#323232" text-color="#fff" active-text-color="#2194EC">
-        <el-menu-item>HCTF</el-menu-item>
+    <el-menu :default-active="this.$route.path" mode="horizontal" :router="true" background-color="#323232"
+             text-color="#fff" active-text-color="#2194EC">
+        <el-menu-item>{{ base.Title }}</el-menu-item>
         <el-menu-item index="/">数据大屏</el-menu-item>
         <el-menu-item index="/team">队伍管理</el-menu-item>
         <el-menu-item index="/challenge">题目管理</el-menu-item>
@@ -13,7 +14,19 @@
 
 <script>
     export default {
-        name: "Header"
+        name: "Header",
+
+        data: () => ({
+            base: {
+                Title: ''
+            },
+        }),
+
+        created() {
+            this.utils.GET('/base').then(res => {
+                this.base = res
+            }).catch(err => this.$message.error(err))
+        }
     }
 </script>
 

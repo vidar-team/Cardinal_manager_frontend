@@ -92,9 +92,7 @@
 
         mounted() {
             this.loop()
-            this.timer = setInterval(() => {
-                this.loop()
-            }, 5000)
+            this.timer = setInterval(this.loop, 5000)
         },
 
         beforeDestroy() {
