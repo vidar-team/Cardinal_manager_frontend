@@ -4,7 +4,28 @@
             <el-col :span="14">
                 <el-card shadow="always" v-loading="loadingLog">
                     <div slot="header" class="clearfix">
-                        <span>系统日志</span>
+                        <span v-if="time !== null">
+                            距离第 <b>{{time.NowRound}}</b> 轮结束还有
+                            <b>{{minute}} 分 {{second}} 秒</b>
+                        </span>
+
+                        <!-- Debug info -->
+                        <el-popover
+                                style="float: right;"
+                                placement="bottom"
+                                title=""
+                                width="300"
+                                trigger="click">
+                            <p>上一轮分数零和：{{ panel.PreviousRoundScore}}
+                                <el-tag size="mini" type="success" v-if="panel.PreviousRoundScore <= 0">正常</el-tag>
+                                <el-tag size="mini" type="danger" v-else>非零和，请检查！</el-tag>
+                            </p>
+                            <p>总轮数分数零和：{{ panel.TotalScore }}
+                                <el-tag size="mini" type="success" v-if="panel.TotalScore <= 0">正常</el-tag>
+                                <el-tag size="mini" type="danger" v-else>非零和，请检查！</el-tag>
+                            </p>
+                            <el-button slot="reference" size="mini">调试信息</el-button>
+                        </el-popover>
                     </div>
                     <div class="system-log">
                         <div v-for="(log, index) in logs" v-bind:key="index">
@@ -21,29 +42,11 @@
             </el-col>
             <el-col :span="10">
                 <el-card shadow="always">
-                    <el-table
-                            :data="rank"
-                            stripe
-                            style="width: 100%"
-                            height="530"
-                            max-height="530"
-                            size="small">
-                        <el-table-column
-                                type="index"
-                                label="#"
-                                width="50">
-                        </el-table-column>
-                        <el-table-column
-                                prop="TeamName"
-                                label="队伍名"
-                        >
-                        </el-table-column>
-                        <el-table-column
-                                prop="Score"
-                                label="分数"
-                                :formatter="(row) => utils.FormatFloat(row.Score)"
-                        >
-                        </el-table-column>
+                    <el-table :data="rank" stripe style="width: 100%" height="530" max-height="530" size="small">
+                        <el-table-column type="index" label="#" width="50"></el-table-column>
+                        <el-table-column prop="TeamName" label="队伍名"></el-table-column>
+                        <el-table-column prop="Score" label="分数"
+                                         :formatter="(row) => utils.FormatFloat(row.Score)"></el-table-column>
                         <el-table-column v-for="(header, index) in rankHeader" v-bind:key="index" :label="header">
                             <template scope="scope">
                                 {{utils.FormatFloat(scope.row.GameBoxStatus[index].Score)}}
@@ -83,9 +86,13 @@
 
         data: () => ({
             timer: null,
+            tickTimer: null,
             loadingLog: false,
 
-            startID: 0,
+            time: null,
+            minute: 0,
+            second: 0,
+
             logs: [],
             rank: [],
             rankHeader: [],
@@ -94,19 +101,40 @@
 
         mounted() {
             this.loop()
+
             this.timer = setInterval(this.loop, 5000)
+
+            this.tickTimer = setInterval(() => {
+                if (this.time !== null) {
+                    if (this.time['RoundRemainTime']-- <= 0) {
+                        this.time.RoundRemainTime = this.time.Duration * 60
+                        this.time.NowRound++
+                    }
+                    this.minute = Math.floor(this.time.RoundRemainTime / 60)
+                    this.second = this.time.RoundRemainTime - this.minute * 60
+                }
+            }, 1000)
         },
 
         beforeDestroy() {
             clearInterval(this.timer)
+            clearInterval(this.tickTimer)
         },
 
         methods: {
             loop() {
+                this.getTime()
                 this.getLogs()
                 this.getRank()
                 this.getPanel()
             },
+
+            getTime() {
+                this.utils.GET('/time').then(res => {
+                    this.time = res
+                }).catch(err => this.$message({message: err, type: 'error'}))
+            },
+
             getLogs() {
                 this.loadingLog = true
                 this.utils.GET('/manager/logs').then(res => {
