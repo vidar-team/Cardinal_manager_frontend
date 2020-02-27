@@ -5,8 +5,19 @@
                 <el-card shadow="always" v-loading="loadingLog">
                     <div slot="header" class="clearfix">
                         <span v-if="time !== null">
-                            距离第 <b>{{time.NowRound}}</b> 轮结束还有
-                            <b>{{minute}} 分 {{second}} 秒</b>
+                            <span v-if="time.Status === 'wait'">
+                                <b>比赛未开始</b>
+                            </span>
+                            <span v-if="time.Status === 'on'">
+                                距离第 <b>{{time.NowRound}}</b> 轮结束还有
+                                <b>{{minute}} 分 {{second}} 秒</b>
+                            </span>
+                            <span v-if="time.Status === 'pause'">
+                                <b>比赛已暂停</b>
+                            </span>
+                            <span v-if="time.Status === 'end'">
+                                <b>比赛已结束</b>
+                            </span>
                         </span>
 
                         <!-- Debug info -->

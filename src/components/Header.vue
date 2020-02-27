@@ -9,6 +9,7 @@
         <el-menu-item index="/flag">Flag 管理</el-menu-item>
         <el-menu-item index="/bulletin">公告管理</el-menu-item>
         <el-menu-item index="/manager">账号管理</el-menu-item>
+        <el-menu-item v-if="$route.name !== 'Login'" index="" @click="onLogout">登出</el-menu-item>
     </el-menu>
 </template>
 
@@ -26,7 +27,17 @@
             this.utils.GET('/base').then(res => {
                 this.base = res
             }).catch(err => this.$message.error(err))
-        }
+        },
+
+        methods: {
+            onLogout() {
+                this.utils.GET('/manager/logout').then(res => {
+                    this.$message.success(res)
+                    localStorage.removeItem('token')
+                    this.$router.push('/login')
+                }).catch(err => this.$message.error(err))
+            }
+        },
     }
 </script>
 
