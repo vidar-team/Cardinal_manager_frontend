@@ -2,14 +2,14 @@
     <el-menu :default-active="this.$route.path" mode="horizontal" :router="true" background-color="#323232"
              text-color="#fff" active-text-color="#2194EC">
         <el-menu-item>{{ base.Title }}</el-menu-item>
-        <el-menu-item index="/">数据大屏</el-menu-item>
-        <el-menu-item index="/team">队伍管理</el-menu-item>
-        <el-menu-item index="/challenge">题目管理</el-menu-item>
-        <el-menu-item index="/gamebox">靶机管理</el-menu-item>
-        <el-menu-item index="/flag">Flag 管理</el-menu-item>
-        <el-menu-item index="/bulletin">公告管理</el-menu-item>
-        <el-menu-item index="/manager">账号管理</el-menu-item>
-        <el-menu-item v-if="$route.name !== 'Login'" index="" @click="onLogout">登出</el-menu-item>
+        <el-menu-item index="/">{{$t('header.panel')}}</el-menu-item>
+        <el-menu-item index="/team">{{$t('header.team')}}</el-menu-item>
+        <el-menu-item index="/challenge">{{$t('header.challenge')}}</el-menu-item>
+        <el-menu-item index="/gamebox">{{$t('header.gamebox')}}</el-menu-item>
+        <el-menu-item index="/flag">{{$t('header.flag')}}</el-menu-item>
+        <el-menu-item index="/bulletin">{{$t('header.bulletin')}}</el-menu-item>
+        <el-menu-item index="/manager">{{$t('header.manager')}}</el-menu-item>
+        <el-menu-item v-if="$route.name !== 'Login'" index="" @click="onLogout">{{$t('header.logout')}}</el-menu-item>
     </el-menu>
 </template>
 

@@ -1,0 +1,28 @@
+{
+  "general": {
+    "cancel": "取消",
+    "confirm_cancel": "确定删除",
+    "create_at": "创建时间",
+    "operate": "操作",
+    "edit": "编辑",
+    "delete": "删除"
+  },
+  "header": {
+    "panel": "数据大屏",
+    "team": "队伍管理",
+    "challenge": "题目管理",
+    "gamebox": "靶机管理",
+    "flag": "Flag 管理",
+    "bulletin": "公告管理",
+    "manager": "账号管理",
+    "logout": "登出"
+  },
+  "bulletin": {
+    "title": "标题",
+    "content": "内容",
+    "delete_title": "您确定删除这条公告吗？",
+    "content_placeholder": "请输入公告内容",
+    "publish": "发布公告",
+    "edit": "编辑公告"
+  }
+}

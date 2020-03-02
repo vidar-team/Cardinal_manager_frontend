@@ -68,8 +68,4 @@ export default {
     FormatGoTime: (timeString) => {
         return new Date(timeString).toLocaleString()
     },
-
-    FormatTime: (timestamp) => {
-        return new Date((timestamp + 8 * 3600) * 1000).toJSON().substr(0, 19).replace('T', ' ');
-    }
 }

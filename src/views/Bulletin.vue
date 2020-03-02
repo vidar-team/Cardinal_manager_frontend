@@ -1,59 +1,60 @@
 <template>
     <div>
-        <el-button type="primary" @click="newBulletinDialogVisible = true">发布公告</el-button>
+        <el-button type="primary" @click="newBulletinDialogVisible = true">{{$t('bulletin.publish')}}</el-button>
         <el-table :data="bulletinList" style="width: 100%" stripe v-loading="bulletinList === null">
             <el-table-column width="80" prop="ID" label="ID"/>
-            <el-table-column prop="Title" label="标题"/>
-            <el-table-column prop="Content" label="内容"/>
-            <el-table-column label="创建时间" width="200" :formatter="(row)=>utils.FormatGoTime(row.CreatedAt)"/>
-            <el-table-column label="操作" width="300">
+            <el-table-column prop="Title" :label="$t('bulletin.title')"/>
+            <el-table-column prop="Content" :label="$t('bulletin.content')"/>
+            <el-table-column :label="$t('general.create_at')" width="200"
+                             :formatter="(row)=>utils.FormatGoTime(row.CreatedAt)"/>
+            <el-table-column :label="$t('general.operate')" width="300">
                 <template slot-scope="scope">
                     <el-button
                             size="mini"
                             @click="()=>{editBulletinForm = JSON.parse(JSON.stringify(scope.row)); editBulletinDialogVisible = true}">
-                        编辑
+                        {{$t('general.edit')}}
                     </el-button>
 
                     <el-popconfirm
-                            confirmButtonText='确定删除'
-                            cancelButtonText='取消'
+                            :confirmButtonText="$t('general.confirm_cancel')"
+                            :cancelButtonText="$t('general.cancel')"
                             icon="el-icon-info"
                             iconColor="red"
-                            title="您确定删除这条公告吗？"
+                            :title="$t('bulletin.delete_title')"
                             @onConfirm="handleDelete(scope.row.ID)"
                     >
-                        <el-button size="mini" type="danger" slot="reference">删除</el-button>
+                        <el-button size="mini" type="danger" slot="reference">{{$t('general.delete')}}</el-button>
                     </el-popconfirm>
                 </template>
             </el-table-column>
         </el-table>
 
-        <!-- 发布公告 -->
-        <el-dialog title="发布公告" :visible.sync="newBulletinDialogVisible">
+        <!-- Publish bulletin -->
+        <el-dialog :title="$t('bulletin.publish')" :visible.sync="newBulletinDialogVisible">
             <el-form :model="newBulletinForm" label-width="80px">
-                <el-form-item label="标题">
+                <el-form-item :label="$t('bulletin.title')">
                     <el-input v-model="newBulletinForm.Title"/>
                 </el-form-item>
-                <el-form-item label="内容">
-                    <el-input type="textarea" :rows="3" placeholder="请输入公告内容"
+                <el-form-item :label="$t('bulletin.content')">
+                    <el-input type="textarea" :rows="3" :placeholder="$t('bulletin.content_placeholder')"
                               v-model="newBulletinForm.Content"></el-input>
                 </el-form-item>
             </el-form>
-            <el-button type="primary" @click="onNewBulletin">发布</el-button>
+            <el-button type="primary" @click="onNewBulletin">{{$t('bulletin.publish')}}</el-button>
         </el-dialog>
 
-        <!-- 编辑公告 -->
-        <el-dialog title="编辑公告" :visible.sync="editBulletinDialogVisible">
+        <!-- Edit bulletin -->
+        <el-dialog :title="$t('bulletin.edit')" :visible.sync="editBulletinDialogVisible">
             <el-form :model="editBulletinForm" label-width="80px">
-                <el-form-item label="标题">
+                <el-form-item :label="$t('bulletin.title')">
                     <el-input v-model="editBulletinForm.Title"/>
                 </el-form-item>
-                <el-form-item label="内容">
-                    <el-input type="textarea" :rows="3" placeholder="请输入公告内容"
+                <el-form-item :label="$t('bulletin.content')">
+                    <el-input type="textarea" :rows="3" :placeholder="$t('bulletin.content_placeholder')"
                               v-model="editBulletinForm.Content"></el-input>
                 </el-form-item>
             </el-form>
-            <el-button type="primary" @click="handleEdit">修改公告</el-button>
+            <el-button type="primary" @click="handleEdit">{{$t('bulletin.edit')}}</el-button>
         </el-dialog>
 
     </div>
@@ -89,7 +90,7 @@
             onNewBulletin() {
                 this.utils.POST('/manager/bulletin', this.newBulletinForm).then(res => {
                     this.newBulletinDialogVisible = false
-                    // 清空表单
+                    // Clean form.
                     this.newBulletinForm = {
                         Title: '',
                         Content: ''
