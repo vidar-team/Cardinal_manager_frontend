@@ -1,5 +1,7 @@
 {
   "general": {
+
+    "apply": "确定",
     "cancel": "取消",
     "confirm_cancel": "确定删除",
     "create_at": "创建时间",
@@ -22,7 +24,17 @@
     "content": "内容",
     "delete_title": "您确定删除这条公告吗？",
     "content_placeholder": "请输入公告内容",
-    "publish": "发布公告",
+    "publish": "发布新公告",
     "edit": "编辑公告"
+  },
+  "challenge": {
+    "title": "题目名",
+    "base_score": "基础分数",
+    "visible": "是否可见",
+    "visible_title": "您确定要设置该题目状态为公开吗？",
+    "invisible_title": "您确定要设置该题目状态为不公开吗？",
+    "delete_title": "您确定删除这个题目吗？",
+    "publish": "添加新题目",
+    "edit": "编辑题目"
   }
 }

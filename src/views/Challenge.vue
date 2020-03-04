@@ -3,61 +3,64 @@
         <el-button type="primary" @click="newChallengeDialogVisible = true">添加Challenge</el-button>
         <el-table :data="challengeList" style="width: 100%" stripe v-loading="challengeList === null">
             <el-table-column width="80" prop="ID" label="ID"/>
-            <el-table-column prop="Title" label="题目名"/>
-            <el-table-column prop="BaseScore" label="基础分数"/>
-            <el-table-column prop="Visible" label="是否可见">
+            <el-table-column prop="Title" :label="$t('challenge.title')"/>
+            <el-table-column prop="BaseScore" :label="$t('challenge.base_score')"/>
+            <el-table-column prop="Visible" :label="$t('challenge.visible')">
                 <template slot-scope="scope">{{scope.row.Visible}}</template>
             </el-table-column>
-            <el-table-column label="创建时间" width="200" :formatter="(row)=>utils.FormatGoTime(row.CreatedAt)"/>
-            <el-table-column label="操作" width="300">
+            <el-table-column :label="$t('general.create_at')" width="200"
+                             :formatter="(row)=>utils.FormatGoTime(row.CreatedAt)"/>
+            <el-table-column :label="$t('general.operate')" width="300">
                 <template slot-scope="scope">
-                    <el-popconfirm :title="'您确定要设置该题目状态为' + (scope.row.Visible ? '不':'') +'公开吗？'"
-                                   @onConfirm="handleVisible(scope.row.ID, !scope.row.Visible)">
-                        <el-button plain size="mini" slot="reference">设置为<span v-if="scope.row.Visible">不</span>可见
-                        </el-button>
+                    <el-popconfirm
+                            :title="scope.row.Visible ? $t('general.invisible_title') : $t('general.visible_title')"
+                            @onConfirm="handleVisible(scope.row.ID, !scope.row.Visible)">
+                        <el-button plain size="mini" slot="reference">{{$t('general.apply')}}</el-button>
                     </el-popconfirm>
                     <el-button
                             size="mini"
-                            @click="()=>{editChallengeForm = JSON.parse(JSON.stringify(scope.row)); editChallengeDialogVisible = true}">编辑
+                            @click="()=>{editChallengeForm = JSON.parse(JSON.stringify(scope.row)); editChallengeDialogVisible = true}">
+                        {{$t('general.edit')}}
                     </el-button>
                     <el-popconfirm
-                            confirmButtonText='确定删除'
-                            cancelButtonText='取消'
+                            :confirmButtonText="$t('general.confirm_cancel')"
+                            :cancelButtonText="$t('general.cancel')"
                             icon="el-icon-info"
                             iconColor="red"
-                            title="您确定删除这个题目吗？"
+                            :title="$t('challenge.delete_title')"
                             @onConfirm="handleDelete(scope.row)"
                     >
-                        <el-button size="mini" type="danger" slot="reference">删除</el-button>
+                        <el-button size="mini" type="danger" slot="reference">{{$t('general.delete')}}
+                        </el-button>
                     </el-popconfirm>
                 </template>
             </el-table-column>
         </el-table>
 
-        <!-- 添加 Challenge -->
-        <el-dialog title="添加 Challenge" :visible.sync="newChallengeDialogVisible">
+        <!-- New Challenge -->
+        <el-dialog :title="$t('challenge.publish')" :visible.sync="newChallengeDialogVisible">
             <el-form :model="newChallengeForm" label-width="80px">
-                <el-form-item label="题目名">
+                <el-form-item :label="$t('challenge.title')">
                     <el-input v-model="newChallengeForm.Title"/>
                 </el-form-item>
-                <el-form-item label="基础分数">
+                <el-form-item :label="$t('challenge.base_score')">
                     <el-input-number v-model="newChallengeForm.BaseScore" :min="1"/>
                 </el-form-item>
             </el-form>
-            <el-button type="primary" @click="onNewChallenge">添加题目</el-button>
+            <el-button type="primary" @click="onNewChallenge">{{$t('challenge.publish')}}</el-button>
         </el-dialog>
 
-        <!-- 修改 Challenge -->
-        <el-dialog title="修改 Challenge" :visible.sync="editChallengeDialogVisible">
+        <!-- Edit Challenge -->
+        <el-dialog :title="$t('challenge.edit')" :visible.sync="editChallengeDialogVisible">
             <el-form :model="editChallengeForm" label-width="80px">
-                <el-form-item label="题目名">
+                <el-form-item :label="$t('challenge.title')">
                     <el-input v-model="editChallengeForm.Title"/>
                 </el-form-item>
-                <el-form-item label="基础分数">
+                <el-form-item :label="$t('challenge.base_score')">
                     <el-input-number v-model="editChallengeForm.BaseScore" :min="1"/>
                 </el-form-item>
             </el-form>
-            <el-button type="primary" @click="onEditChallenge">修改题目</el-button>
+            <el-button type="primary" @click="onEditChallenge">{{$t('challenge.edit')}}</el-button>
         </el-dialog>
 
     </div>
