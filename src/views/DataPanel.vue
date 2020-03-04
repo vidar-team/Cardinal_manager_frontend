@@ -6,17 +6,16 @@
                     <div slot="header" class="clearfix">
                         <span v-if="time !== null">
                             <span v-if="time.Status === 'wait'">
-                                <b>比赛未开始</b>
+                                <b>{{$t('panel.not_begin')}}</b>
                             </span>
-                            <span v-if="time.Status === 'on'">
-                                距离第 <b>{{time.NowRound}}</b> 轮结束还有
-                                <b>{{minute}} 分 {{second}} 秒</b>
+                            <span v-if="time.Status === 'on'"
+                                  v-html="$t('panel.til_round_end', { round: time.NowRound, minute: minute, second: second})">
                             </span>
                             <span v-if="time.Status === 'pause'">
-                                <b>比赛已暂停</b>
+                                <b>{{$t('panel.pause')}}</b>
                             </span>
                             <span v-if="time.Status === 'end'">
-                                <b>比赛已结束</b>
+                                <b>{{$t('panel.end')}}</b>
                             </span>
                         </span>
 
@@ -27,15 +26,18 @@
                                 title=""
                                 width="300"
                                 trigger="click">
-                            <p>上一轮分数零和：{{ panel.PreviousRoundScore}}
-                                <el-tag size="mini" type="success" v-if="panel.PreviousRoundScore <= 0">正常</el-tag>
-                                <el-tag size="mini" type="danger" v-else>非零和，请检查！</el-tag>
+                            <p>{{$t('panel.previous_round_zero_title')}}{{ panel.PreviousRoundScore}}
+                                <el-tag size="mini" type="success" v-if="panel.PreviousRoundScore <= 0">
+                                    {{$t('panel.ok')}}
+                                </el-tag>
+                                <el-tag size="mini" type="danger" v-else>{{$t('panel.zero_alert')}}</el-tag>
                             </p>
-                            <p>总轮数分数零和：{{ panel.TotalScore }}
-                                <el-tag size="mini" type="success" v-if="panel.TotalScore <= 0">正常</el-tag>
-                                <el-tag size="mini" type="danger" v-else>非零和，请检查！</el-tag>
+                            <p>{{$t('panel.total_zero_title')}}{{ panel.TotalScore }}
+                                <el-tag size="mini" type="success" v-if="panel.TotalScore <= 0">{{$t('panel.ok')}}
+                                </el-tag>
+                                <el-tag size="mini" type="danger" v-else>{{$t('panel.zero_alert')}}</el-tag>
                             </p>
-                            <el-button slot="reference" size="mini">调试信息</el-button>
+                            <el-button slot="reference" size="mini">{{$t('panel.debug_info')}}</el-button>
                         </el-popover>
                     </div>
                     <div class="system-log">
@@ -55,8 +57,8 @@
                 <el-card shadow="always">
                     <el-table :data="rank" stripe style="width: 100%" height="530" max-height="530" size="small">
                         <el-table-column type="index" label="#" width="50"></el-table-column>
-                        <el-table-column prop="TeamName" label="队伍名"></el-table-column>
-                        <el-table-column prop="Score" label="分数"
+                        <el-table-column prop="TeamName" :label="$t('panel.team')"></el-table-column>
+                        <el-table-column prop="Score" :label="$t('panel.score')"
                                          :formatter="(row) => utils.FormatFloat(row.Score)"></el-table-column>
                         <el-table-column v-for="(header, index) in rankHeader" v-bind:key="index" :label="header">
                             <template scope="scope">
@@ -70,19 +72,19 @@
                     <el-row :gutter="20">
                         <el-col :span="6" class="panel">
                             <p class="panel-data">{{ panel.SubmitFlag }}</p>
-                            <span class="panel-text">正确提交 Flag</span>
+                            <span class="panel-text">{{$t('panel.submit_flag_count')}}</span>
                         </el-col>
                         <el-col :span="6" class="panel">
                             <p class="panel-data">{{ panel.CheckDown }}</p>
-                            <span class="panel-text">CheckDown 次数</span>
+                            <span class="panel-text">{{$t('panel.checkdown_count')}}</span>
                         </el-col>
                         <el-col :span="6" class="panel">
                             <p class="panel-data">{{ panel.MemAllocated }}</p>
-                            <span class="panel-text">占用内存</span>
+                            <span class="panel-text">{{$t('panel.memory_allocated')}}</span>
                         </el-col>
                         <el-col :span="6" class="panel" style="border-right-width: 0;">
                             <p class="panel-data">{{ panel.NumGoroutine }}</p>
-                            <span class="panel-text">Goroutine 数</span>
+                            <span class="panel-text">{{$t('panel.goroutine_count')}}</span>
                         </el-col>
                     </el-row>
                 </el-card>

@@ -1,6 +1,5 @@
 {
   "general": {
-
     "apply": "确定",
     "cancel": "取消",
     "confirm_cancel": "确定删除",
@@ -36,5 +35,22 @@
     "delete_title": "您确定删除这个题目吗？",
     "publish": "添加新题目",
     "edit": "编辑题目"
+  },
+  "panel": {
+    "ok": "正常",
+    "not_begin": "比赛未开始",
+    "til_round_end": "距离第 <b>{round}</b> 轮结束还有 <b>{minute} 分 {second} 秒</b>",
+    "pause": "比赛已暂停",
+    "end": "比赛已结束",
+    "previous_round_zero_title": "上一轮分数零和：",
+    "total_zero_title": "上一轮分数零和：",
+    "zero_alert": "分数非零和，请检查！",
+    "debug_info": "调试信息",
+    "team": "队伍",
+    "score": "分数",
+    "submit_flag_count": "正确提交 Flag",
+    "checkdown_count": "CheckDown 次数",
+    "memory_allocated": "占用内存",
+    "goroutine_count": "Goroutine 数"
   }
 }
