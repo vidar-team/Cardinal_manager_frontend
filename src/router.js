@@ -49,14 +49,14 @@ const router = new Router({
 })
 
 router.beforeEach((to, from, next) => {
-    // 路由守卫
+    // Router guard
     if(!localStorage.getItem('token') && to.name !== 'Login'){
         next({
             name: 'Login'
         })
         return
     }
-    // 登录后再访问登录
+    // Login again
     if(localStorage.getItem('token') && to.name === 'Login'){
         next({
             name: 'Main'

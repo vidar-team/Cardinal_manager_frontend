@@ -1,45 +1,48 @@
 <template>
     <div>
-        <el-button type="primary" @click="newGameBoxDialogVisible = true">添加GameBox</el-button>
+        <el-button type="primary" @click="newGameBoxDialogVisible = true">{{$t('gamebox.publish')}}</el-button>
         <el-table :data="gameBoxList" style="width: 100%" stripe v-loading="gameBoxList === null">
             <el-table-column width="80" prop="ID" label="ID"/>
-            <el-table-column prop="ChallengeTitle" label="题目名"/>
-            <el-table-column prop="TeamName" label="所属队伍"/>
-            <el-table-column prop="IP" label="IP"/>
-            <el-table-column prop="Port" label="端口"/>
-            <el-table-column prop="Score" label="分数" :formatter="(row) => utils.FormatFloat(row.Score)"/>
-            <el-table-column prop="Description" label="题目介绍"/>
-            <el-table-column prop="IsDown" label="Down">
+            <el-table-column prop="ChallengeTitle" :label="$t('gamebox.challenge')"/>
+            <el-table-column prop="TeamName" :label="$t('gamebox.team')"/>
+            <el-table-column prop="IP" :label="$t('gamebox.ip')"/>
+            <el-table-column prop="Port" :label="$t('gamebox.port')"/>
+            <el-table-column prop="Score" :label="$t('gamebox.score')"
+                             :formatter="(row) => utils.FormatFloat(row.Score)"/>
+            <el-table-column prop="Description" :label="$t('gamebox.description')"/>
+            <el-table-column prop="IsDown" :label="$t('gamebox.down')">
                 <template slot-scope="scope">{{scope.row.IsDown}}</template>
             </el-table-column>
-            <el-table-column prop="IsAttacked" label="被攻陷">
+            <el-table-column prop="IsAttacked" :label="$t('gamebox.attacked')">
                 <template slot-scope="scope">{{scope.row.IsAttacked}}</template>
             </el-table-column>
-            <el-table-column label="创建时间" width="200" :formatter="(row)=>utils.FormatGoTime(row.CreatedAt)"/>
-            <el-table-column label="操作" width="300">
+            <el-table-column :label="$t('general.create_at')" width="200"
+                             :formatter="(row)=>utils.FormatGoTime(row.CreatedAt)"/>
+            <el-table-column :label="$t('general.operate')" width="300">
                 <template slot-scope="scope">
                     <el-button
                             size="mini"
                             @click="()=>{editGameBoxForm = JSON.parse(JSON.stringify(scope.row)); editGameBoxDialogVisible = true}">
-                        编辑
+                        {{$t('general.edit')}}
                     </el-button>
                 </template>
             </el-table-column>
         </el-table>
 
         <br>
-        <el-pagination  style="text-align:center" background layout="prev, pager, next" :total="total" :page-size="per" @current-change="(p)=>{page = p; getGameBoxes()}"></el-pagination>
+        <el-pagination style="text-align:center" background layout="prev, pager, next" :total="total" :page-size="per"
+                       @current-change="(p)=>{page = p; getGameBoxes()}"></el-pagination>
 
-        <!-- 添加 GameBox -->
-        <el-dialog title="添加 GameBox" :visible.sync="newGameBoxDialogVisible">
-            <el-button type="primary" @click="mutliGameBoxDialogVisible = true">批量添加</el-button>
+        <!-- New GameBox -->
+        <el-dialog :title="$t('gamebox.publish')" :visible.sync="newGameBoxDialogVisible">
+            <el-button type="primary" @click="mutliGameBoxDialogVisible = true">{{$t('gamebox.multi')}}</el-button>
             <el-button @click="newGameBoxForm.push({
                     ChallengeID: null,
                     TeamID: null,
                     IP: '',
                     Port: '',
                     Description: ''
-                })">新增 GameBox
+                })">{{$t('gamebox.add')}}
             </el-button>
             <el-divider/>
             <div v-for="(item, index) in newGameBoxForm" v-bind:key="index">
@@ -47,8 +50,8 @@
                     <el-form :model="item" label-width="120px">
                         <el-button type="danger" icon="el-icon-delete" circle @click="newGameBoxForm.splice(index, 1)"/>
                         <el-col :span="10">
-                            <el-form-item label="题目 Challenge">
-                                <el-select v-model="item.ChallengeID" placeholder="请选择题目">
+                            <el-form-item :label="$t('gamebox.challenge')">
+                                <el-select v-model="item.ChallengeID" :placeholder="$t('gamebox.challenge_placeholder')">
                                     <el-option
                                             v-for="challenge in challenges"
                                             :key="challenge.ID"
@@ -59,8 +62,8 @@
                             </el-form-item>
                         </el-col>
                         <el-col :span="10">
-                            <el-form-item label="队伍 Team">
-                                <el-select v-model="item.TeamID" placeholder="请选择队伍">
+                            <el-form-item :label="$t('gamebox.team')">
+                                <el-select v-model="item.TeamID" :placeholder="$t('gamebox.team_placeholder')">
                                     <el-option
                                             v-for="team in teams"
                                             :key="team.ID"
@@ -71,18 +74,18 @@
                             </el-form-item>
                         </el-col>
                         <el-col :span="10">
-                            <el-form-item label="IP">
-                                <el-input v-model="item.IP" placeholder="请输入题目 IP"></el-input>
+                            <el-form-item :label="$t('gamebox.ip')">
+                                <el-input v-model="item.IP" :placeholder="$t('gamebox.ip_placeholder')"></el-input>
                             </el-form-item>
                         </el-col>
                         <el-col :span="10">
-                            <el-form-item label="Port">
-                                <el-input v-model="item.Port" placeholder="请输入题目端口"></el-input>
+                            <el-form-item :label="$t('gamebox.port')">
+                                <el-input v-model="item.Port" :placeholder="$t('gamebox.port_placeholder')"></el-input>
                             </el-form-item>
                         </el-col>
                         <el-col :span="20">
-                            <el-form-item label="题目描述">
-                                <el-input type="textarea" :rows="3" placeholder="请输入题目描述" v-model="item.Description">
+                            <el-form-item :label="$t('gamebox.description')">
+                                <el-input type="textarea" :rows="3" :placeholder="$t('gamebox.description_placeholder')" v-model="item.Description">
                                 </el-input>
                             </el-form-item>
                             <el-divider></el-divider>
@@ -91,13 +94,13 @@
                 </el-row>
 
             </div>
-            <el-button type="primary" @click="onNewGameBox">添加 GameBox</el-button>
+            <el-button type="primary" @click="onNewGameBox">{{$t('gamebox.publish')}}</el-button>
         </el-dialog>
 
-        <!-- 批量添加 -->
-        <el-dialog title="批量添加" :visible.sync="mutliGameBoxDialogVisible">
+        <!-- Multi -->
+        <el-dialog :title="$t('gamebox.multi')" :visible.sync="mutliGameBoxDialogVisible">
             <span>
-                格式
+                {{$t('gamebox.format')}}
                 <code>[{
                     "ChallengeID": 1,
                     "TeamID": 1,
@@ -107,47 +110,47 @@
                 }]</code>
             </span>
             <el-form>
-                <el-form-item label="JSON 字符串">
+                <el-form-item :label="$t('gamebox.json_string')">
                     <el-input type="textarea" v-model="mutliGameBoxJSON"></el-input>
                 </el-form-item>
             </el-form>
             <div slot="footer" class="dialog-footer">
-                <el-button @click="mutliGameBoxDialogVisible = false">取消</el-button>
-                <el-button type="primary" @click="mutliGameBox">确定</el-button>
+                <el-button @click="mutliGameBoxDialogVisible = false">{{$t('general.cancel')}}</el-button>
+                <el-button type="primary" @click="mutliGameBox">{{$t('general.apply')}}</el-button>
             </div>
         </el-dialog>
 
-        <!-- 修改 -->
-        <el-dialog title="修改 GameBox" :visible.sync="editGameBoxDialogVisible">
+        <!-- Edit -->
+        <el-dialog :title="$t('gamebox.edit')" :visible.sync="editGameBoxDialogVisible">
             <el-form label-width="120px" v-if="editGameBoxDialogVisible">
                 <el-col :span="10">
-                    <el-form-item label="题目 Challenge">
+                    <el-form-item :label="$t('gamebox.challenge')">
                         {{editGameBoxForm.ChallengeTitle}}
                     </el-form-item>
                 </el-col>
                 <el-col :span="10">
-                    <el-form-item label="队伍 Team">
+                    <el-form-item :label="$t('gamebox.team')">
                         {{editGameBoxForm.TeamName}}
                     </el-form-item>
                 </el-col>
                 <el-col :span="10">
-                    <el-form-item label="IP">
-                        <el-input v-model="editGameBoxForm.IP" placeholder="请输入题目 IP"></el-input>
+                    <el-form-item :label="$t('gamebox.ip')">
+                        <el-input v-model="editGameBoxForm.IP" :placeholder="$t('gamebox.ip_placeholder')"></el-input>
                     </el-form-item>
                 </el-col>
                 <el-col :span="10">
                     <el-form-item label="Port">
-                        <el-input v-model="editGameBoxForm.Port" placeholder="请输入题目端口"></el-input>
+                        <el-input v-model="editGameBoxForm.Port" :placeholder="$t('gamebox.port_placeholder')"></el-input>
                     </el-form-item>
                 </el-col>
                 <el-col :span="20">
-                    <el-form-item label="题目描述">
-                        <el-input type="textarea" :rows="3" placeholder="请输入题目描述" v-model="editGameBoxForm.Description">
+                    <el-form-item :label="$t('gamebox.description')">
+                        <el-input type="textarea" :rows="3" :placeholder="$t('gamebox.description_placeholder')" v-model="editGameBoxForm.Description">
                         </el-input>
                     </el-form-item>
                 </el-col>
             </el-form>
-            <el-button type="primary" @click="onEditGameBox">修改 GameBox</el-button>
+            <el-button type="primary" @click="onEditGameBox">{{$t('gamebox.edit')}}</el-button>
         </el-dialog>
 
     </div>
@@ -239,7 +242,7 @@
                     this.mutliGameBoxDialogVisible = false
                     this.mutliGameBoxJSON = ''
                 } catch (e) {
-                    this.$message.error('JSON 解析失败！')
+                    this.$message.error(this.$i18n.t('gamebox.json_parse_error'))
                     this.newGameBoxForm = backup
                 }
             },
@@ -248,7 +251,7 @@
                 this.utils.POST('/manager/gameboxes', this.newGameBoxForm).then(res => {
                     this.newGameBoxDialogVisible = false
                     this.getGameBoxes()
-                    // 清空表单
+                    // Clean form
                     this.newGameBoxForm = []
                     this.$message({message: res, type: 'success'})
                 }).catch(err => this.$message.error(err))
