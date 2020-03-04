@@ -10,10 +10,10 @@ Vue.use(ElementUI);
 Vue.use(VueI18n)
 
 const i18n = new VueI18n({
-    locale: 'zh',
+    locale: 'zh-CN',
     messages: {
-        'zh': require('@/assets/languages/zh-CN.json'),
-        'en': require('@/assets/languages/en-US.json')
+        'zh-CN': require('@/assets/languages/zh-CN.json'),
+        'en-US': require('@/assets/languages/en-US.json')
     }
 });
 

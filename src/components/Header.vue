@@ -10,6 +10,18 @@
         <el-menu-item index="/bulletin">{{$t('header.bulletin')}}</el-menu-item>
         <el-menu-item index="/manager">{{$t('header.manager')}}</el-menu-item>
         <el-menu-item v-if="$route.name !== 'Login'" index="" @click="onLogout">{{$t('header.logout')}}</el-menu-item>
+        <el-menu-item index="">
+            <el-dropdown @command="(lang) => this.$i18n.locale = lang" class="height: 100%;">
+                <span>
+                    {{$i18n.locale}}
+                </span>
+                <el-dropdown-menu slot="dropdown">
+                    <el-dropdown-item v-for="(lang, index) in $i18n.availableLocales" v-bind:key="index"
+                                      :command="lang">{{lang}}
+                    </el-dropdown-item>
+                </el-dropdown-menu>
+            </el-dropdown>
+        </el-menu-item>
     </el-menu>
 </template>
 
