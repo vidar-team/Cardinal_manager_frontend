@@ -44,7 +44,7 @@
     "pause": "比赛已暂停",
     "end": "比赛已结束",
     "previous_round_zero_title": "上一轮分数零和：",
-    "total_zero_title": "上一轮分数零和：",
+    "total_zero_title": "总分数零和：",
     "zero_alert": "分数非零和，请检查！",
     "debug_info": "调试信息",
     "team": "队伍",
