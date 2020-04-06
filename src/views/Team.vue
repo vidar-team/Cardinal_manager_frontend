@@ -86,6 +86,14 @@
                 </el-form-item>
                 <el-form-item>
                     <el-button type="primary" @click="onEditTeam">{{$t('team.edit')}}</el-button>
+                    <el-popconfirm
+                            :title="$t('team.reset_password_confirm')"
+                            :confirmButtonText="$t('general.apply')"
+                            :cancelButtonText="$t('general.cancel')"
+                            @onConfirm="onResetPassword(editTeamForm.ID)"
+                    >
+                        <el-button slot="reference">{{$t('team.reset_password')}}</el-button>
+                    </el-popconfirm>
                 </el-form-item>
             </el-form>
         </el-dialog>
@@ -155,6 +163,17 @@
                     this.editTeamDialogVisible = false
                     this.getTeams()
                     this.$message.success(res)
+                }).catch(err => this.$message({message: err, type: 'error'}))
+            },
+
+            onResetPassword(teamID) {
+                this.utils.POST('/manager/team/resetPassword', {
+                    ID: teamID
+                }).then(res => {
+                    this.editTeamDialogVisible = false
+                    this.$alert(res, this.$i18n.t('team.new_password'), {
+                        confirmButtonText: this.$i18n.t('general.apply')
+                    })
                 }).catch(err => this.$message({message: err, type: 'error'}))
             },
 
