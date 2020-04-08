@@ -1,4 +1,4 @@
 module.exports = {
     productionSourceMap: false,
-    outputDir: "dist/files"
+    outputDir: "dist/files/manager"
 }
