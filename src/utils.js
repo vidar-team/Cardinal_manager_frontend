@@ -9,7 +9,7 @@ export default {
         return new Promise((resolve, reject) => {
             axios.get(bURL + uri, {
                 headers: {
-                    'Authorization': auth ? localStorage.getItem('token') : ''
+                    'Authorization': auth ? localStorage.getItem('managerToken') : ''
                 }
             }).then(res => {
                 resolve(res.data.data);
@@ -23,7 +23,7 @@ export default {
         return new Promise((resolve, reject) => {
             axios.post(bURL + uri, payload, {
                 headers: {
-                    'Authorization': auth ? localStorage.getItem('token') : ''
+                    'Authorization': auth ? localStorage.getItem('managerToken') : ''
                 }
             }).then(res => {
                 resolve(res.data.data);
@@ -37,7 +37,7 @@ export default {
         return new Promise((resolve, reject) => {
             axios.delete(bURL + uri, {
                 headers: {
-                    'Authorization': auth ? localStorage.getItem('token') : ''
+                    'Authorization': auth ? localStorage.getItem('managerToken') : ''
                 }
             }).then(res => {
                 resolve(res.data.data);
@@ -51,7 +51,7 @@ export default {
         return new Promise((resolve, reject) => {
             axios.put(bURL + uri, payload, {
                 headers: {
-                    'Authorization': auth ? localStorage.getItem('token') : ''
+                    'Authorization': auth ? localStorage.getItem('managerToken') : ''
                 }
             }).then(res => {
                 resolve(res.data.data);

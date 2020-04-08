@@ -41,7 +41,7 @@
         name: "Manager",
 
         data: () => ({
-            token: localStorage.getItem('token'),
+            token: localStorage.getItem('managerToken'),
             newManagerDialogVisible: false,
             managerList: null,
 
