@@ -127,6 +127,9 @@
     "save_password": "Please save the team's password",
     "account_detail": "Account：{Name}  Password：{Password}",
     "team_password": "Team Password",
-    "save_confirm": "I have saved it"
+    "save_confirm": "I have saved it",
+    "new_password": "New Password",
+    "reset_password": "Reset Password",
+    "reset_password_confirm": "Are you sure to reset this team's password?"
   }
 }

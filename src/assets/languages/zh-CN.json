@@ -127,6 +127,9 @@
     "save_password": "请保存队伍密码",
     "account_detail": "账号：{Name}  密码：{Password}",
     "team_password": "队伍密码",
-    "save_confirm": "我已确认保存"
+    "save_confirm": "我已确认保存",
+    "new_password": "新的密码",
+    "reset_password": "重置队伍密码",
+    "reset_password_confirm": "请确认是否重置该队伍密码"
   }
 }
