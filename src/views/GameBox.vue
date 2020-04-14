@@ -51,7 +51,8 @@
                         <el-button type="danger" icon="el-icon-delete" circle @click="newGameBoxForm.splice(index, 1)"/>
                         <el-col :span="10">
                             <el-form-item :label="$t('gamebox.challenge')">
-                                <el-select v-model="item.ChallengeID" :placeholder="$t('gamebox.challenge_placeholder')">
+                                <el-select v-model="item.ChallengeID"
+                                           :placeholder="$t('gamebox.challenge_placeholder')">
                                     <el-option
                                             v-for="challenge in challenges"
                                             :key="challenge.ID"
@@ -85,7 +86,8 @@
                         </el-col>
                         <el-col :span="20">
                             <el-form-item :label="$t('gamebox.description')">
-                                <el-input type="textarea" :rows="3" :placeholder="$t('gamebox.description_placeholder')" v-model="item.Description">
+                                <el-input type="textarea" :rows="3" :placeholder="$t('gamebox.description_placeholder')"
+                                          v-model="item.Description">
                                 </el-input>
                             </el-form-item>
                             <el-divider></el-divider>
@@ -122,33 +124,26 @@
 
         <!-- Edit -->
         <el-dialog :title="$t('gamebox.edit')" :visible.sync="editGameBoxDialogVisible">
-            <el-form label-width="120px" v-if="editGameBoxDialogVisible">
-                <el-col :span="10">
-                    <el-form-item :label="$t('gamebox.challenge')">
-                        {{editGameBoxForm.ChallengeTitle}}
-                    </el-form-item>
-                </el-col>
-                <el-col :span="10">
-                    <el-form-item :label="$t('gamebox.team')">
-                        {{editGameBoxForm.TeamName}}
-                    </el-form-item>
-                </el-col>
-                <el-col :span="10">
-                    <el-form-item :label="$t('gamebox.ip')">
-                        <el-input v-model="editGameBoxForm.IP" :placeholder="$t('gamebox.ip_placeholder')"></el-input>
-                    </el-form-item>
-                </el-col>
-                <el-col :span="10">
-                    <el-form-item label="Port">
-                        <el-input v-model="editGameBoxForm.Port" :placeholder="$t('gamebox.port_placeholder')"></el-input>
-                    </el-form-item>
-                </el-col>
-                <el-col :span="20">
-                    <el-form-item :label="$t('gamebox.description')">
-                        <el-input type="textarea" :rows="3" :placeholder="$t('gamebox.description_placeholder')" v-model="editGameBoxForm.Description">
-                        </el-input>
-                    </el-form-item>
-                </el-col>
+            <el-form label-width="120px">
+                <el-form-item :label="$t('gamebox.challenge')">
+                    {{editGameBoxForm.ChallengeTitle}}
+                </el-form-item>
+                <el-form-item :label="$t('gamebox.team')">
+                    {{editGameBoxForm.TeamName}}
+                </el-form-item>
+                <el-form-item :label="$t('gamebox.ip')">
+                    <el-input v-model="editGameBoxForm.IP"
+                              :placeholder="$t('gamebox.ip_placeholder')"></el-input>
+                </el-form-item>
+                <el-form-item label="Port">
+                    <el-input v-model="editGameBoxForm.Port"
+                              :placeholder="$t('gamebox.port_placeholder')"></el-input>
+                </el-form-item>
+                <el-form-item :label="$t('gamebox.description')">
+                    <el-input type="textarea" :rows="3" :placeholder="$t('gamebox.description_placeholder')"
+                              v-model="editGameBoxForm.Description">
+                    </el-input>
+                </el-form-item>
             </el-form>
             <el-button type="primary" @click="onEditGameBox">{{$t('gamebox.edit')}}</el-button>
         </el-dialog>
@@ -169,7 +164,13 @@
             challenges: [],
 
             newGameBoxForm: [],
-            editGameBoxForm: null,
+            editGameBoxForm: {
+                ChallengeTitle: '',
+                TeamName: '',
+                IP: '',
+                Port: '',
+                Description: ''
+            },
 
             mutliGameBoxJSON: '',
 
