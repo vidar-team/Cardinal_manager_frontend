@@ -7,7 +7,8 @@
     "update_at": "Update At",
     "operate": "Options",
     "edit": "Edit",
-    "delete": "Delete"
+    "delete": "Delete",
+    "export": "Export"
   },
   "header": {
     "panel": "Dashboard",
@@ -67,7 +68,8 @@
     "round": "Round",
     "flag": "Flag",
     "confirm": "Confirm",
-    "generate_flag_confirm": "This operation will delete all the existing flags and regenerate them. Are you sure to continue?"
+    "generate_flag_confirm": "This operation will delete all the existing flags and regenerate them. Are you sure to continue?",
+    "export_flag": "Export Flag"
   },
   "gamebox": {
     "add": "Add",
