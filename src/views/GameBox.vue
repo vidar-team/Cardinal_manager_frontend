@@ -129,6 +129,9 @@
                     "TeamID": 1,
                     "IP": "",
                     "Port": "",
+                    "SSHPort": "",
+                    "SSHUser": "",
+                    "SSHPassword": "",
                     "Description": ""
                 }]</code>
             </span>
@@ -272,8 +275,8 @@
                             IP: value.IP,
                             Port: value.Port,
                             SSHPort: value.SSHPort !== undefined ? value.SSHPort : '',
-                            SSHUser: value.SSHUser,
-                            SSHPassword: value.SSHPassword,
+                            SSHUser: value.SSHUser !== undefined ? value.SSHUser : '',
+                            SSHPassword: value.SSHPassword !== undefined ? value.SSHPassword : '',
                             Description: value.Description
                         })
                     })
