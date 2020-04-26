@@ -1,6 +1,7 @@
 <template>
     <div>
         <el-button type="primary" @click="newGameBoxDialogVisible = true">{{$t('gamebox.publish')}}</el-button>
+        <el-button type="primary" @click="testSSH" :loading="sshTesting">{{$t('gamebox.test_ssh')}}</el-button>
         <el-table :data="gameBoxList" style="width: 100%" stripe v-loading="gameBoxList === null">
             <el-table-column width="80" prop="ID" label="ID"/>
             <el-table-column prop="ChallengeTitle" :label="$t('gamebox.challenge')"/>
@@ -41,13 +42,16 @@
                     TeamID: null,
                     IP: '',
                     Port: '',
+                    SSHPort: '',
+                    SSHUser:'root',
+                    SSHPassword: '',
                     Description: ''
                 })">{{$t('gamebox.add')}}
             </el-button>
             <el-divider/>
             <div v-for="(item, index) in newGameBoxForm" v-bind:key="index">
                 <el-row :gutter="20">
-                    <el-form :model="item" label-width="120px">
+                    <el-form :model="item" label-width="130px">
                         <el-button type="danger" icon="el-icon-delete" circle @click="newGameBoxForm.splice(index, 1)"/>
                         <el-col :span="10">
                             <el-form-item :label="$t('gamebox.challenge')">
@@ -90,6 +94,23 @@
                                           v-model="item.Description">
                                 </el-input>
                             </el-form-item>
+                        </el-col>
+                        <el-col :span="7">
+                            <el-form-item :label="$t('gamebox.ssh_port')">
+                                <el-input v-model="item.SSHPort"></el-input>
+                            </el-form-item>
+                        </el-col>
+                        <el-col :span="7">
+                            <el-form-item :label="$t('gamebox.ssh_user')">
+                                <el-input v-model="item.SSHUser"></el-input>
+                            </el-form-item>
+                        </el-col>
+                        <el-col :span="9">
+                            <el-form-item :label="$t('gamebox.ssh_password')">
+                                <el-input v-model="item.SSHPassword"></el-input>
+                            </el-form-item>
+                        </el-col>
+                        <el-col>
                             <el-divider></el-divider>
                         </el-col>
                     </el-form>
@@ -135,7 +156,7 @@
                     <el-input v-model="editGameBoxForm.IP"
                               :placeholder="$t('gamebox.ip_placeholder')"></el-input>
                 </el-form-item>
-                <el-form-item label="Port">
+                <el-form-item :label="$t('gamebox.port')">
                     <el-input v-model="editGameBoxForm.Port"
                               :placeholder="$t('gamebox.port_placeholder')"></el-input>
                 </el-form-item>
@@ -143,6 +164,15 @@
                     <el-input type="textarea" :rows="3" :placeholder="$t('gamebox.description_placeholder')"
                               v-model="editGameBoxForm.Description">
                     </el-input>
+                </el-form-item>
+                <el-form-item :label="$t('gamebox.ssh_port')">
+                    <el-input v-model="editGameBoxForm.SSHPort"></el-input>
+                </el-form-item>
+                <el-form-item :label="$t('gamebox.ssh_user')">
+                    <el-input v-model="editGameBoxForm.SSHUser"></el-input>
+                </el-form-item>
+                <el-form-item :label="$t('gamebox.ssh_password')">
+                    <el-input v-model="editGameBoxForm.SSHPassword"></el-input>
                 </el-form-item>
             </el-form>
             <el-button type="primary" @click="onEditGameBox">{{$t('gamebox.edit')}}</el-button>
@@ -158,6 +188,7 @@
             newGameBoxDialogVisible: false,
             editGameBoxDialogVisible: false,
             mutliGameBoxDialogVisible: false,
+            sshTesting: false,
 
             gameBoxList: null,
             teams: [],
@@ -169,6 +200,9 @@
                 TeamName: '',
                 IP: '',
                 Port: '',
+                SSHPort: '',
+                SSHUser: '',
+                SSHPassword: '',
                 Description: ''
             },
 
@@ -237,6 +271,9 @@
                             TeamID: value.TeamID,
                             IP: value.IP,
                             Port: value.Port,
+                            SSHPort: value.SSHPort !== undefined ? value.SSHPort : '',
+                            SSHUser: value.SSHUser,
+                            SSHPassword: value.SSHPassword,
                             Description: value.Description
                         })
                     })
@@ -285,6 +322,23 @@
                 })
                 return result
             },
+
+            testSSH() {
+                this.sshTesting = true
+                this.utils.GET("/manager/gameboxes/sshTest").then(res => {
+                    this.sshTesting = false
+                    if (res === null) {
+                        return this.$message.success(this.$i18n.t("gamebox.test_ssh_success"))
+                    }
+                    let content = ''
+                    res.forEach(item => {
+                        content += `<p><strong>TeamID：</strong>${item.TeamID}<br><strong>ChallengeID：</strong>${item.ChallengeID}<br><strong>GameBoxID：</strong>${item.GameBoxID}<br><strong>Error：</strong>${item.Error}<hr></p>`
+                    })
+                    this.$alert(content, '测试失败', {
+                        dangerouslyUseHTMLString: true
+                    });
+                })
+            }
         }
     }
 </script>

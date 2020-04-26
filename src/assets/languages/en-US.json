@@ -35,7 +35,12 @@
     "invisible_title": "Are you sure to make this challenge invisible?",
     "delete_title": "Are you sure to delete this challenge?",
     "publish": "New Challenge",
-    "edit": "Edit Challenge"
+    "set_visible": "Set Visible",
+    "new": "New Challenge",
+    "edit": "Edit Challenge",
+    "auto_refresh_flag": "Update Flag Automatically",
+    "command": "Update Flag Command",
+    "flag_placeholder": "Flag Placeholder "
   },
   "panel": {
     "ok": "OK",
@@ -84,7 +89,12 @@
     "format": "Format",
     "json_string": "JSON String",
     "json_parse_error": "Parse JSON Error！",
-    "edit": "Edit Gamebox"
+    "edit": "Edit Gamebox",
+    "ssh_port": "Flag  SSH Port",
+    "ssh_user": "Flag  SSH User Name",
+    "ssh_password": "Flag SSH Password",
+    "test_ssh": "Test SSH Connection",
+    "test_ssh_success": "SSH Connect Successfully！"
   },
   "login": {
     "account": "Account",

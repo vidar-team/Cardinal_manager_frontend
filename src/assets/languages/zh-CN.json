@@ -35,7 +35,12 @@
     "invisible_title": "您确定要设置该题目状态为不公开吗？",
     "delete_title": "您确定删除这个题目吗？",
     "publish": "添加新题目",
-    "edit": "编辑题目"
+    "set_visible": "设置可见",
+    "new": "添加 Challenge",
+    "edit": "编辑题目",
+    "auto_refresh_flag": "自动更新 Flag",
+    "command": "更新 Flag 命令",
+    "flag_placeholder": "Flag 占位符 "
   },
   "panel": {
     "ok": "正常",
@@ -84,7 +89,12 @@
     "format": "格式",
     "json_string": "JSON 字符串",
     "json_parse_error": "JSON 解析失败！",
-    "edit": "修改靶机信息"
+    "edit": "修改靶机信息",
+    "ssh_port": "Flag  SSH 端口",
+    "ssh_user": "Flag  SSH 用户名",
+    "ssh_password": "Flag SSH 密码",
+    "test_ssh": "测试 SSH 连接",
+    "test_ssh_success": "SSH 连接全部成功！"
   },
   "login": {
     "account": "账号",
