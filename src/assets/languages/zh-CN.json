@@ -121,7 +121,8 @@
     "refresh_token_confirm": "此操作将刷新当前账号的 Token，会使得登录状态失效, 是否继续?",
     "new_password": "新的密码",
     "new_token": "新的 Token",
-    "save_confirm": "我已确认保存"
+    "save_confirm": "我已确认保存",
+    "is_check": "Check 账号"
   },
   "team": {
     "add": "添加队伍",

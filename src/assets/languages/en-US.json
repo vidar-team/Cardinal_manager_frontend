@@ -121,7 +121,8 @@
     "refresh_token_confirm": "This operation will refresh this manager's token. The login status will be invalid. Are you sure to continue?",
     "new_password": "New Password",
     "new_token": "New Token",
-    "save_confirm": "I have saved it"
+    "save_confirm": "I have saved it",
+    "is_check": "Check Account"
   },
   "team": {
     "add": "New Team",
