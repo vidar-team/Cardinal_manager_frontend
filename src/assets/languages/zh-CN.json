@@ -7,7 +7,8 @@
     "update_at": "更新时间",
     "operate": "操作",
     "edit": "编辑",
-    "delete": "删除"
+    "delete": "删除",
+    "export": "导出"
   },
   "header": {
     "panel": "数据大屏",
@@ -35,7 +36,12 @@
     "invisible_title": "您确定要设置该题目状态为不公开吗？",
     "delete_title": "您确定删除这个题目吗？",
     "publish": "添加新题目",
-    "edit": "编辑题目"
+    "set_visible": "设置可见",
+    "new": "添加 Challenge",
+    "edit": "编辑题目",
+    "auto_refresh_flag": "自动更新 Flag",
+    "command": "更新 Flag 命令",
+    "flag_placeholder": "Flag 占位符 "
   },
   "panel": {
     "ok": "正常",
@@ -62,7 +68,8 @@
     "round": "所属轮数",
     "flag": "Flag",
     "confirm": "请确认",
-    "generate_flag_confirm": "此操作将删除现有的 Flag 并重新生成, 是否继续?"
+    "generate_flag_confirm": "此操作将删除现有的 Flag 并重新生成, 是否继续?",
+    "export_flag": "导出题目 Flag"
   },
   "gamebox": {
     "add": "新增",
@@ -84,7 +91,12 @@
     "format": "格式",
     "json_string": "JSON 字符串",
     "json_parse_error": "JSON 解析失败！",
-    "edit": "修改靶机信息"
+    "edit": "修改靶机信息",
+    "ssh_port": "Flag  SSH 端口",
+    "ssh_user": "Flag  SSH 用户名",
+    "ssh_password": "Flag SSH 密码",
+    "test_ssh": "测试 SSH 连接",
+    "test_ssh_success": "SSH 连接全部成功！"
   },
   "login": {
     "account": "账号",
@@ -109,7 +121,8 @@
     "refresh_token_confirm": "此操作将刷新当前账号的 Token，会使得登录状态失效, 是否继续?",
     "new_password": "新的密码",
     "new_token": "新的 Token",
-    "save_confirm": "我已确认保存"
+    "save_confirm": "我已确认保存",
+    "is_check": "Check 账号"
   },
   "team": {
     "add": "添加队伍",

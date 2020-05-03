@@ -45,7 +45,7 @@
             onLogout() {
                 this.utils.GET('/manager/logout').then(res => {
                     this.$message.success(res)
-                    localStorage.removeItem('token')
+                    localStorage.removeItem('managerToken')
                     this.$router.push('/login')
                 }).catch(err => this.$message.error(err))
             }

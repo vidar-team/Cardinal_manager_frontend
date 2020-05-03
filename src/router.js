@@ -50,14 +50,14 @@ const router = new Router({
 
 router.beforeEach((to, from, next) => {
     // Router guard
-    if(!localStorage.getItem('token') && to.name !== 'Login'){
+    if(!localStorage.getItem('managerToken') && to.name !== 'Login'){
         next({
             name: 'Login'
         })
         return
     }
     // Login again
-    if(localStorage.getItem('token') && to.name === 'Login'){
+    if(localStorage.getItem('managerToken') && to.name === 'Login'){
         next({
             name: 'Main'
         })

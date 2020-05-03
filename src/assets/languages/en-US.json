@@ -7,7 +7,8 @@
     "update_at": "Update At",
     "operate": "Options",
     "edit": "Edit",
-    "delete": "Delete"
+    "delete": "Delete",
+    "export": "Export"
   },
   "header": {
     "panel": "Dashboard",
@@ -35,7 +36,12 @@
     "invisible_title": "Are you sure to make this challenge invisible?",
     "delete_title": "Are you sure to delete this challenge?",
     "publish": "New Challenge",
-    "edit": "Edit Challenge"
+    "set_visible": "Set Visible",
+    "new": "New Challenge",
+    "edit": "Edit Challenge",
+    "auto_refresh_flag": "Update Flag Automatically",
+    "command": "Update Flag Command",
+    "flag_placeholder": "Flag Placeholder "
   },
   "panel": {
     "ok": "OK",
@@ -62,7 +68,8 @@
     "round": "Round",
     "flag": "Flag",
     "confirm": "Confirm",
-    "generate_flag_confirm": "This operation will delete all the existing flags and regenerate them. Are you sure to continue?"
+    "generate_flag_confirm": "This operation will delete all the existing flags and regenerate them. Are you sure to continue?",
+    "export_flag": "Export Flag"
   },
   "gamebox": {
     "add": "Add",
@@ -84,7 +91,12 @@
     "format": "Format",
     "json_string": "JSON String",
     "json_parse_error": "Parse JSON Error！",
-    "edit": "Edit Gamebox"
+    "edit": "Edit Gamebox",
+    "ssh_port": "Flag  SSH Port",
+    "ssh_user": "Flag  SSH User Name",
+    "ssh_password": "Flag SSH Password",
+    "test_ssh": "Test SSH Connection",
+    "test_ssh_success": "SSH Connect Successfully！"
   },
   "login": {
     "account": "Account",
@@ -109,7 +121,8 @@
     "refresh_token_confirm": "This operation will refresh this manager's token. The login status will be invalid. Are you sure to continue?",
     "new_password": "New Password",
     "new_token": "New Token",
-    "save_confirm": "I have saved it"
+    "save_confirm": "I have saved it",
+    "is_check": "Check Account"
   },
   "team": {
     "add": "New Team",

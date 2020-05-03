@@ -109,7 +109,7 @@
             newTeamDialogVisible: false,
             editTeamDialogVisible: false,
 
-            token: localStorage.getItem('token'),
+            token: localStorage.getItem('managerToken'),
 
             newTeamForm: [{
                 Name: '',

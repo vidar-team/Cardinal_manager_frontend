@@ -47,7 +47,7 @@
                 });
 
                 this.utils.POST('/manager/login', this.inputForm).then(res => {
-                    localStorage.setItem('token', res)
+                    localStorage.setItem('managerToken', res)
                     this.$message({
                         message: this.$i18n.t('login.success'),
                         type: 'success'
