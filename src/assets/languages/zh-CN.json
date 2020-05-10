@@ -17,6 +17,7 @@
     "gamebox": "靶机管理",
     "flag": "Flag 管理",
     "bulletin": "公告管理",
+    "webhook": "WebHook 管理",
     "manager": "账号管理",
     "logout": "登出"
   },
@@ -144,5 +145,25 @@
     "new_password": "新的密码",
     "reset_password": "重置队伍密码",
     "reset_password_confirm": "请确认是否重置该队伍密码"
+  },
+  "webhook": {
+    "add": "添加 WebHook",
+    "edit": "修改 WebHook",
+    "url": "URL",
+    "type": "WebHook 类型",
+    "token": "Token",
+    "token_tips": "Token 用于计算请求中的签名，为空则随机生成 Token",
+    "retry": "请求重试次数",
+    "timeout": "请求超时时间",
+    "timeout_tips": "为 0 则不设置超时时间",
+    "delete_title": "您确定删除该 WebHook 吗？",
+    "please_select": "请选择 WebHook 类型",
+    "publish": "添加新的 WebHook",
+    "type_any": "任意 Hook 触发时",
+    "type_new_round": "新的一轮开始时",
+    "type_submit_flag": "有 Flag 提交时",
+    "type_game_begin": "比赛开始时",
+    "type_game_pause": "比赛暂停时",
+    "type_game_end": "比赛结束时"
   }
 }

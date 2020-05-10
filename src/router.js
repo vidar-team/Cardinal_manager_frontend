@@ -41,6 +41,11 @@ const router = new Router({
             component: () => import('@/views/Bulletin.vue')
         },
         {
+            path: '/webhook',
+            name: 'WebHook',
+            component: () => import('@/views/WebHook.vue')
+        },
+        {
             path: '/manager',
             name: 'Manager',
             component: () => import('@/views/Manager.vue')
