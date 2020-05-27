@@ -1,7 +1,7 @@
 <template>
     <div>
         <el-button type="primary" @click="newChallengeDialogVisible = true">{{$t('challenge.new')}}</el-button>
-        <el-table :data="challengeList" style="width: 100%" stripe v-loading="challengeList === null">
+        <el-table :data="challengeList" style="width: 100%" stripe v-loading="isLoading">
             <el-table-column width="80" prop="ID" label="ID"/>
             <el-table-column prop="Title" :label="$t('challenge.title')"/>
             <el-table-column prop="BaseScore" :label="$t('challenge.base_score')"/>
@@ -89,6 +89,7 @@
         name: "Challenge",
         data() {
             return {
+                isLoading: true,
                 challengeList: null,
                 newChallengeDialogVisible: false,
                 editChallengeDialogVisible: false,
@@ -117,6 +118,7 @@
             getChallenges() {
                 this.utils.GET("/manager/challenges").then(res => {
                     this.challengeList = res
+                    this.isLoading = false
                 }).catch(err => this.$message.error(err))
             },
 

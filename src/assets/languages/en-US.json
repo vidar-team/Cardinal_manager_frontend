@@ -17,6 +17,7 @@
     "gamebox": "Gamebox",
     "flag": "Flag",
     "bulletin": "Bulletin",
+    "webhook": "WebHook",
     "manager": "Manager",
     "logout": "Log out"
   },
@@ -55,6 +56,7 @@
     "debug_info": "Debug Information",
     "team": "Team",
     "score": "Score",
+    "export_rank": "Export Ranking",
     "submit_flag_count": "Flags Submitted",
     "checkdown_count": "CheckDown",
     "memory_allocated": "Memory Allocated",
@@ -144,5 +146,25 @@
     "new_password": "New Password",
     "reset_password": "Reset Password",
     "reset_password_confirm": "Are you sure to reset this team's password?"
+  },
+  "webhook": {
+    "add": "New WebHook",
+    "edit": "Edit WebHook",
+    "url": "URL",
+    "type": "Type",
+    "token": "Token",
+    "token_tips": "Token used to generate the signature, randomly generate token if it is empty.",
+    "retry": "Request retry times",
+    "timeout": "Request overtime",
+    "timeout_tips": "No overtime if it zero.",
+    "delete_title": "This operation will delete this webhook. Are you sure to continue?",
+    "please_select": "Please select the webhook type",
+    "publish": "New WebHook",
+    "type_any": "Any Hook",
+    "type_new_round": "New Round",
+    "type_submit_flag": "Flag Submitted",
+    "type_game_begin": "Game Begin",
+    "type_game_pause": "Game Pause",
+    "type_game_end": "Game End"
   }
 }
