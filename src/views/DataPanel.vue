@@ -66,6 +66,8 @@
                             </template>
                         </el-table-column>
                     </el-table>
+                    <br>
+<!--                    <el-button size="mini" @click="exportRank">{{$t('panel.export_rank')}}</el-button>-->
                 </el-card>
                 <br>
                 <el-card>
@@ -167,7 +169,20 @@
                 this.utils.GET('/manager/panel').then(res => {
                     this.panel = res
                 }).catch(err => this.$message({message: err, type: 'error'}))
-            }
+            },
+
+            // exportRank() {
+            //     this.getRank()
+                // let content = ''
+                //
+                // let blob = new Blob([JSON.stringify(res)], {type: 'text/plain'})
+                // let downloadElement = document.createElement("a")
+                // let href = window.URL.createObjectURL(blob)
+                // downloadElement.href = href
+                // downloadElement.download = name
+                // downloadElement.click()
+                // window.URL.revokeObjectURL(href)
+            // }
         }
     }
 </script>

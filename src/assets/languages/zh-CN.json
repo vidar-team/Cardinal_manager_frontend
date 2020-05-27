@@ -56,6 +56,7 @@
     "debug_info": "调试信息",
     "team": "队伍",
     "score": "分数",
+    "export_rank": "导出排名",
     "submit_flag_count": "正确提交 Flag",
     "checkdown_count": "CheckDown 次数",
     "memory_allocated": "占用内存",
