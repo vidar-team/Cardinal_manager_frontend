@@ -1,7 +1,7 @@
 <template>
     <div>
         <el-button type="primary" @click="newGameBoxDialogVisible = true">{{$t('gamebox.publish')}}</el-button>
-        <el-button type="primary" @click="testSSH" :loading="sshTesting">{{$t('gamebox.test_ssh')}}</el-button>
+        <el-button type="primary" @click="testAllSSH" :loading="sshTesting">{{$t('gamebox.test_ssh')}}</el-button>
         <el-table :data="gameBoxList" style="width: 100%" stripe v-loading="gameBoxList === null">
             <el-table-column width="80" prop="ID" label="ID"/>
             <el-table-column prop="ChallengeTitle" :label="$t('gamebox.challenge')"/>
@@ -179,6 +179,10 @@
                 </el-form-item>
             </el-form>
             <el-button type="primary" @click="onEditGameBox">{{$t('gamebox.edit')}}</el-button>
+            <el-button
+                    @click="testGameBoxSSH(editGameBoxForm.IP, editGameBoxForm.SSHPort, editGameBoxForm.SSHUser, editGameBoxForm.SSHPassword)">
+                {{$t('gamebox.test_ssh')}}
+            </el-button>
         </el-dialog>
 
         <!-- SSH -->
@@ -336,7 +340,7 @@
                 return result
             },
 
-            testSSH() {
+            testAllSSH() {
                 this.sshTesting = true
                 this.utils.GET("/manager/gameboxes/sshTest").then(res => {
                     this.sshTesting = false
@@ -350,6 +354,22 @@
                     })
                     this.sshFailDialogVisible = true
                 })
+            },
+
+            testGameBoxSSH(IP, Port, User, Password) {
+                this.$prompt(this.$t('gamebox.input_shell_command'), '', {
+                    confirmButtonText: this.$t('general.apply'),
+                    cancelButtonText: this.$t('general.cancel'),
+                }).then(({value: Command}) => {
+                    this.utils.POST('/manager/gameboxes/sshTest', {
+                        IP, Port, User, Password, Command
+                    }).then(res => {
+                        this.$alert(res, this.$t('general.success'));
+                    }).catch(err => {
+                        this.$alert(err, this.$t('general.fail'));
+                    })
+                }).catch(() => {
+                });
             }
         }
     }

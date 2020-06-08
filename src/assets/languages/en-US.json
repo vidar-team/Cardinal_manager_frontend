@@ -8,7 +8,9 @@
     "operate": "Options",
     "edit": "Edit",
     "delete": "Delete",
-    "export": "Export"
+    "export": "Export",
+    "success": "Success",
+    "fail": "Fail"
   },
   "header": {
     "panel": "Dashboard",
@@ -99,7 +101,8 @@
     "ssh_password": "Flag SSH Password",
     "test_ssh": "Test SSH Connection",
     "test_ssh_success": "SSH Connect Successfully！",
-    "test_ssh_fail": "Fail to Connect the SSH."
+    "test_ssh_fail": "Fail to Connect the SSH.",
+    "input_shell_command": "Please input the shell command to test"
   },
   "login": {
     "account": "Account",
