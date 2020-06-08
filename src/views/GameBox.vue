@@ -2,6 +2,7 @@
     <div>
         <el-button type="primary" @click="newGameBoxDialogVisible = true">{{$t('gamebox.publish')}}</el-button>
         <el-button type="primary" @click="testAllSSH" :loading="sshTesting">{{$t('gamebox.test_ssh')}}</el-button>
+        <el-button @click="refreshFlag">{{$t('gamebox.refresh_flag')}}</el-button>
         <el-table :data="gameBoxList" style="width: 100%" stripe v-loading="gameBoxList === null">
             <el-table-column width="80" prop="ID" label="ID"/>
             <el-table-column prop="ChallengeTitle" :label="$t('gamebox.challenge')"/>
@@ -363,13 +364,17 @@
                 }).then(({value: Command}) => {
                     this.utils.POST('/manager/gameboxes/sshTest', {
                         IP, Port, User, Password, Command
-                    }).then(res => {
-                        this.$alert(res, this.$t('general.success'));
-                    }).catch(err => {
-                        this.$alert(err, this.$t('general.fail'));
-                    })
+                    }).then(res => this.$alert(res, this.$t('general.success'))
+                    ).catch(err => this.$alert(err, this.$t('general.fail'))
+                    )
                 }).catch(() => {
                 });
+            },
+
+            refreshFlag() {
+                this.utils.GET('/manager/gameboxes/refreshFlag')
+                    .then(res => this.$message.success(res))
+                    .catch(err => this.$message.error(err))
             }
         }
     }

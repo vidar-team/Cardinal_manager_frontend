@@ -102,7 +102,8 @@
     "test_ssh": "测试 SSH 连接",
     "test_ssh_fail": "SSH 连接失败",
     "test_ssh_success": "SSH 连接全部成功！",
-    "input_shell_command": "请输入需要测试的 Shell 命令"
+    "input_shell_command": "请输入需要测试的 Shell 命令",
+    "refresh_flag": "更新所有 Flag"
   },
   "login": {
     "account": "账号",
