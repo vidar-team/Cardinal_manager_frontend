@@ -98,6 +98,7 @@
     "ssh_user": "Flag  SSH 用户名",
     "ssh_password": "Flag SSH 密码",
     "test_ssh": "测试 SSH 连接",
+    "test_ssh_fail": "SSH 连接失败",
     "test_ssh_success": "SSH 连接全部成功！"
   },
   "login": {

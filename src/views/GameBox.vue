@@ -181,6 +181,14 @@
             <el-button type="primary" @click="onEditGameBox">{{$t('gamebox.edit')}}</el-button>
         </el-dialog>
 
+        <!-- SSH -->
+        <el-dialog :title="$t('gamebox.test_ssh_fail')" :visible.sync="sshFailDialogVisible">
+            <div v-html="sshFailContent"></div>
+            <div slot="footer" class="dialog-footer">
+                <el-button @click="sshFailDialogVisible = false">{{$t('general.apply')}}</el-button>
+            </div>
+        </el-dialog>
+
     </div>
 </template>
 
@@ -191,6 +199,7 @@
             newGameBoxDialogVisible: false,
             editGameBoxDialogVisible: false,
             mutliGameBoxDialogVisible: false,
+            sshFailDialogVisible: false,
             sshTesting: false,
 
             gameBoxList: null,
@@ -210,6 +219,7 @@
             },
 
             mutliGameBoxJSON: '',
+            sshFailContent: '',
 
             page: 1,
             per: 10,
@@ -333,13 +343,12 @@
                     if (res === null) {
                         return this.$message.success(this.$i18n.t("gamebox.test_ssh_success"))
                     }
-                    let content = ''
+
+                    this.sshFailContent = ''
                     res.forEach(item => {
-                        content += `<p><strong>TeamID：</strong>${item.TeamID}<br><strong>ChallengeID：</strong>${item.ChallengeID}<br><strong>GameBoxID：</strong>${item.GameBoxID}<br><strong>Error：</strong>${item.Error}<hr></p>`
+                        this.sshFailContent += `<strong>TeamID：</strong>${item.TeamID}<br><strong>ChallengeID：</strong>${item.ChallengeID}<br><strong>GameBoxID：</strong>${item.GameBoxID}<br><strong>Error：</strong>${item.Error}<hr>`
                     })
-                    this.$alert(content, '测试失败', {
-                        dangerouslyUseHTMLString: true
-                    });
+                    this.sshFailDialogVisible = true
                 })
             }
         }

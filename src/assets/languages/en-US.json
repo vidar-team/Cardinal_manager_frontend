@@ -98,7 +98,8 @@
     "ssh_user": "Flag  SSH User Name",
     "ssh_password": "Flag SSH Password",
     "test_ssh": "Test SSH Connection",
-    "test_ssh_success": "SSH Connect Successfully！"
+    "test_ssh_success": "SSH Connect Successfully！",
+    "test_ssh_fail": "Fail to Connect the SSH."
   },
   "login": {
     "account": "Account",
