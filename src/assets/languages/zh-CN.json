@@ -41,7 +41,7 @@
     "new": "添加 Challenge",
     "edit": "编辑题目",
     "auto_refresh_flag": "自动更新 Flag",
-    "command": "更新 Flag 命令",
+    "command": "更新 Flag Shell 命令",
     "flag_placeholder": "Flag 占位符 "
   },
   "panel": {

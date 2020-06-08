@@ -41,7 +41,7 @@
     "new": "New Challenge",
     "edit": "Edit Challenge",
     "auto_refresh_flag": "Update Flag Automatically",
-    "command": "Update Flag Command",
+    "command": "Update Flag Shell Command",
     "flag_placeholder": "Flag Placeholder "
   },
   "panel": {
