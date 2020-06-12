@@ -8,7 +8,9 @@
     "operate": "操作",
     "edit": "编辑",
     "delete": "删除",
-    "export": "导出"
+    "export": "导出",
+    "success": "成功",
+    "fail": "失败"
   },
   "header": {
     "panel": "数据大屏",
@@ -41,7 +43,7 @@
     "new": "添加 Challenge",
     "edit": "编辑题目",
     "auto_refresh_flag": "自动更新 Flag",
-    "command": "更新 Flag 命令",
+    "command": "更新 Flag Shell 命令",
     "flag_placeholder": "Flag 占位符 "
   },
   "panel": {
@@ -98,7 +100,10 @@
     "ssh_user": "Flag  SSH 用户名",
     "ssh_password": "Flag SSH 密码",
     "test_ssh": "测试 SSH 连接",
-    "test_ssh_success": "SSH 连接全部成功！"
+    "test_ssh_fail": "SSH 连接失败",
+    "test_ssh_success": "SSH 连接全部成功！",
+    "input_shell_command": "请输入需要测试的 Shell 命令",
+    "refresh_flag": "更新所有 Flag"
   },
   "login": {
     "account": "账号",

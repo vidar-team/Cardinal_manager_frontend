@@ -8,7 +8,9 @@
     "operate": "Options",
     "edit": "Edit",
     "delete": "Delete",
-    "export": "Export"
+    "export": "Export",
+    "success": "Success",
+    "fail": "Fail"
   },
   "header": {
     "panel": "Dashboard",
@@ -41,7 +43,7 @@
     "new": "New Challenge",
     "edit": "Edit Challenge",
     "auto_refresh_flag": "Update Flag Automatically",
-    "command": "Update Flag Command",
+    "command": "Update Flag Shell Command",
     "flag_placeholder": "Flag Placeholder "
   },
   "panel": {
@@ -98,7 +100,10 @@
     "ssh_user": "Flag  SSH User Name",
     "ssh_password": "Flag SSH Password",
     "test_ssh": "Test SSH Connection",
-    "test_ssh_success": "SSH Connect Successfully！"
+    "test_ssh_success": "SSH Connect Successfully！",
+    "test_ssh_fail": "Fail to Connect the SSH.",
+    "input_shell_command": "Please input the shell command to test",
+    "refresh_flag": "Refresh all the flags"
   },
   "login": {
     "account": "Account",

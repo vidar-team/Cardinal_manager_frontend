@@ -1,7 +1,8 @@
 <template>
     <div>
         <el-button type="primary" @click="newGameBoxDialogVisible = true">{{$t('gamebox.publish')}}</el-button>
-        <el-button type="primary" @click="testSSH" :loading="sshTesting">{{$t('gamebox.test_ssh')}}</el-button>
+        <el-button type="primary" @click="testAllSSH" :loading="sshTesting">{{$t('gamebox.test_ssh')}}</el-button>
+        <el-button @click="refreshFlag">{{$t('gamebox.refresh_flag')}}</el-button>
         <el-table :data="gameBoxList" style="width: 100%" stripe v-loading="gameBoxList === null">
             <el-table-column width="80" prop="ID" label="ID"/>
             <el-table-column prop="ChallengeTitle" :label="$t('gamebox.challenge')"/>
@@ -179,6 +180,18 @@
                 </el-form-item>
             </el-form>
             <el-button type="primary" @click="onEditGameBox">{{$t('gamebox.edit')}}</el-button>
+            <el-button
+                    @click="testGameBoxSSH(editGameBoxForm.IP, editGameBoxForm.SSHPort, editGameBoxForm.SSHUser, editGameBoxForm.SSHPassword)">
+                {{$t('gamebox.test_ssh')}}
+            </el-button>
+        </el-dialog>
+
+        <!-- SSH -->
+        <el-dialog :title="$t('gamebox.test_ssh_fail')" :visible.sync="sshFailDialogVisible">
+            <div v-html="sshFailContent"></div>
+            <div slot="footer" class="dialog-footer">
+                <el-button @click="sshFailDialogVisible = false">{{$t('general.apply')}}</el-button>
+            </div>
         </el-dialog>
 
     </div>
@@ -191,6 +204,7 @@
             newGameBoxDialogVisible: false,
             editGameBoxDialogVisible: false,
             mutliGameBoxDialogVisible: false,
+            sshFailDialogVisible: false,
             sshTesting: false,
 
             gameBoxList: null,
@@ -210,6 +224,7 @@
             },
 
             mutliGameBoxJSON: '',
+            sshFailContent: '',
 
             page: 1,
             per: 10,
@@ -326,21 +341,40 @@
                 return result
             },
 
-            testSSH() {
+            testAllSSH() {
                 this.sshTesting = true
                 this.utils.GET("/manager/gameboxes/sshTest").then(res => {
                     this.sshTesting = false
                     if (res === null) {
                         return this.$message.success(this.$i18n.t("gamebox.test_ssh_success"))
                     }
-                    let content = ''
+
+                    this.sshFailContent = ''
                     res.forEach(item => {
-                        content += `<p><strong>TeamID：</strong>${item.TeamID}<br><strong>ChallengeID：</strong>${item.ChallengeID}<br><strong>GameBoxID：</strong>${item.GameBoxID}<br><strong>Error：</strong>${item.Error}<hr></p>`
+                        this.sshFailContent += `<strong>TeamID：</strong>${item.TeamID}<br><strong>ChallengeID：</strong>${item.ChallengeID}<br><strong>GameBoxID：</strong>${item.GameBoxID}<br><strong>Error：</strong>${item.Error}<hr>`
                     })
-                    this.$alert(content, '测试失败', {
-                        dangerouslyUseHTMLString: true
-                    });
+                    this.sshFailDialogVisible = true
                 })
+            },
+
+            testGameBoxSSH(IP, Port, User, Password) {
+                this.$prompt(this.$t('gamebox.input_shell_command'), '', {
+                    confirmButtonText: this.$t('general.apply'),
+                    cancelButtonText: this.$t('general.cancel'),
+                }).then(({value: Command}) => {
+                    this.utils.POST('/manager/gameboxes/sshTest', {
+                        IP, Port, User, Password, Command
+                    }).then(res => this.$alert(res, this.$t('general.success'))
+                    ).catch(err => this.$alert(err, this.$t('general.fail'))
+                    )
+                }).catch(() => {
+                });
+            },
+
+            refreshFlag() {
+                this.utils.GET('/manager/gameboxes/refreshFlag')
+                    .then(res => this.$message.success(res))
+                    .catch(err => this.$message.error(err))
             }
         }
     }
