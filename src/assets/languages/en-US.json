@@ -76,6 +76,27 @@
     "generate_flag_confirm": "This operation will delete all the existing flags and regenerate them. Are you sure to continue?",
     "export_flag": "Export Flag"
   },
+  "asteroid": {
+    "intro": "Asteroid is an AWD 3D Panel made with Unity3D.",
+    "docs": "Docs",
+    "github": "GitHub",
+    "refresh_rank": "Refresh Rank",
+    "clean_all_status": "Remove All Status",
+    "send_easter_egg": "Easter Egg!!",
+    "attack": "Attack",
+    "attacker": "Attacker",
+    "attacked": "Attacked",
+    "select": "Select",
+    "set_status": "Set Status",
+    "status": "Status",
+    "team": "Team",
+    "clean_status": "Remove Status",
+    "set_round": "Set Round",
+    "round": "Round",
+    "set_time": "Set Time",
+    "time": "Time",
+    "send": "Send"
+  },
   "gamebox": {
     "add": "Add",
     "publish": "New Gamebox",

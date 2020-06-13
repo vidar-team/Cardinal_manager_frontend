@@ -2,18 +2,18 @@
     <div>
         <el-collapse :value="['1']">
             <el-collapse-item title="Asteroid" name="1">
-                <div>Asteroid 是使用 Unity3D 开发的一款 AWD 3D 实时大屏，后端已与 Cardinal 平台深度整合。</div>
+                <div>{{$t('asteroid.intro')}}</div>
                 <div>
-                    <el-link type="primary" href="https://cardinal.ink/asteroid/" target="_blank">使用文档</el-link>&nbsp;&nbsp;
-                    <el-link type="primary" href="https://github.com/wuhan005/Asteroid" target="_blank">GitHub 链接
+                    <el-link type="primary" href="https://cardinal.ink/asteroid/" target="_blank">{{$t('asteroid.docs')}}</el-link>&nbsp;&nbsp;
+                    <el-link type="primary" href="https://github.com/wuhan005/Asteroid" target="_blank">{{$t('asteroid.github')}}
                     </el-link>
                 </div>
             </el-collapse-item>
         </el-collapse>
         <br>
-        <el-button type="primary" @click="setRank">刷新队伍信息</el-button>
-        <el-button type="primary" @click="clearAll">清除所有队伍状态</el-button>
-        <el-button @click="easterEgg">发送陨石彩蛋</el-button>
+        <el-button type="primary" @click="setRank">{{$t('asteroid.refresh_rank')}}</el-button>
+        <el-button type="primary" @click="clearAll">{{$t('asteroid.clean_all_status')}}</el-button>
+        <el-button @click="easterEgg">{{$t('asteroid.send_easter_egg')}}</el-button>
         <br>
         <br>
         <el-alert
@@ -22,10 +22,10 @@
                 :closable="false">
         </el-alert>
         <br>
-        <span><b>攻击</b></span>
+        <span><b>{{$t('asteroid.attack')}}</b></span>
         <el-form :inline="true" label-width="80px">
-            <el-form-item label="攻击方">
-                <el-select v-model="attackForm.From" placeholder="请选择">
+            <el-form-item :label="$t('asteroid.attacker')">
+                <el-select v-model="attackForm.From" :placeholder="$t('asteroid.select')">
                     <el-option
                             v-for="team in teams"
                             :key="team.ID"
@@ -34,8 +34,8 @@
                     </el-option>
                 </el-select>
             </el-form-item>
-            <el-form-item label="被攻击方">
-                <el-select v-model="attackForm.To" placeholder="请选择">
+            <el-form-item :label="$t('asteroid.attacked')">
+                <el-select v-model="attackForm.To" :placeholder="$t('asteroid.select')">
                     <el-option
                             v-for="team in teams"
                             :key="team.ID"
@@ -45,13 +45,13 @@
                 </el-select>
             </el-form-item>
             <el-form-item>
-                <el-button type="primary" @click="attack">发送</el-button>
+                <el-button type="primary" @click="attack">{{$t('asteroid.send')}}</el-button>
             </el-form-item>
         </el-form>
-        <span><b>设置状态</b></span>
+        <span><b>{{$t('asteroid.set_status')}}</b></span>
         <el-form :inline="true" label-width="80px">
-            <el-form-item label="队伍">
-                <el-select v-model="statusForm.Id" placeholder="请选择">
+            <el-form-item :label="$t('asteroid.team')">
+                <el-select v-model="statusForm.Id" :placeholder="$t('asteroid.select')">
                     <el-option
                             v-for="team in teams"
                             :key="team.ID"
@@ -60,8 +60,8 @@
                     </el-option>
                 </el-select>
             </el-form-item>
-            <el-form-item label="状态">
-                <el-select v-model="statusForm.Status" placeholder="请选择">
+            <el-form-item :label="$t('asteroid.status')">
+                <el-select v-model="statusForm.Status" :placeholder="$t('asteroid.select')">
                     <el-option
                             key="down"
                             label="Check Down"
@@ -75,13 +75,13 @@
                 </el-select>
             </el-form-item>
             <el-form-item>
-                <el-button type="primary" @click="status">发送</el-button>
+                <el-button type="primary" @click="status">{{$t('asteroid.send')}}</el-button>
             </el-form-item>
         </el-form>
-        <span><b>清除队伍状态</b></span>
+        <span><b>{{$t('asteroid.clean_status')}}</b></span>
         <el-form :inline="true" label-width="80px">
-            <el-form-item label="队伍">
-                <el-select v-model="clearForm.Id" placeholder="请选择">
+            <el-form-item :label="$t('asteroid.team')">
+                <el-select v-model="clearForm.Id" :placeholder="$t('asteroid.select')">
                     <el-option
                             v-for="team in teams"
                             :key="team.ID"
@@ -91,25 +91,25 @@
                 </el-select>
             </el-form-item>
             <el-form-item>
-                <el-button type="primary" @click="clear">发送</el-button>
+                <el-button type="primary" @click="clear">{{$t('asteroid.send')}}</el-button>
             </el-form-item>
         </el-form>
-        <span><b>设置轮数</b></span>
+        <span><b>{{$t('asteroid.set_round')}}</b></span>
         <el-form :inline="true" label-width="80px">
-            <el-form-item label="轮数">
+            <el-form-item :label="$t('asteroid.round')">
                 <el-input-number v-model="roundForm.Round" :min="1"></el-input-number>
             </el-form-item>
             <el-form-item>
-                <el-button type="primary" @click="round">发送</el-button>
+                <el-button type="primary" @click="round">{{$t('asteroid.send')}}</el-button>
             </el-form-item>
         </el-form>
-        <span><b>设置剩余时间</b></span>
+        <span><b>{{$t('asteroid.set_time')}}</b></span>
         <el-form :inline="true" label-width="80px">
-            <el-form-item label="剩余时间">
+            <el-form-item :label="$t('asteroid.time')">
                 <el-input-number v-model="timeForm.Time" :min="0"></el-input-number>
             </el-form-item>
             <el-form-item>
-                <el-button type="primary" @click="time">发送</el-button>
+                <el-button type="primary" @click="time">{{$t('asteroid.send')}}</el-button>
             </el-form-item>
         </el-form>
     </div>
