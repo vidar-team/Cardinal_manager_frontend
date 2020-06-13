@@ -41,6 +41,11 @@ const router = new Router({
             component: () => import('@/views/Bulletin.vue')
         },
         {
+            path: '/asteroid',
+            name: 'Asteroid',
+            component: () => import('@/views/Asteroid.vue')
+        },
+        {
             path: '/webhook',
             name: 'WebHook',
             component: () => import('@/views/WebHook.vue')
@@ -55,14 +60,14 @@ const router = new Router({
 
 router.beforeEach((to, from, next) => {
     // Router guard
-    if(!localStorage.getItem('managerToken') && to.name !== 'Login'){
+    if (!localStorage.getItem('managerToken') && to.name !== 'Login') {
         next({
             name: 'Login'
         })
         return
     }
     // Login again
-    if(localStorage.getItem('managerToken') && to.name === 'Login'){
+    if (localStorage.getItem('managerToken') && to.name === 'Login') {
         next({
             name: 'Main'
         })
