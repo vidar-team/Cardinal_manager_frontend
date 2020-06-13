@@ -19,6 +19,7 @@
     "gamebox": "靶机管理",
     "flag": "Flag 管理",
     "bulletin": "公告管理",
+    "asteroid": "Asteroid 大屏管理",
     "webhook": "WebHook 管理",
     "manager": "账号管理",
     "logout": "登出"

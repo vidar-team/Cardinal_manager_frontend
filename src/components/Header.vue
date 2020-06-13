@@ -8,6 +8,7 @@
         <el-menu-item index="/gamebox">{{$t('header.gamebox')}}</el-menu-item>
         <el-menu-item index="/flag">{{$t('header.flag')}}</el-menu-item>
         <el-menu-item index="/bulletin">{{$t('header.bulletin')}}</el-menu-item>
+        <el-menu-item index="/asteroid">{{$t('header.asteroid')}}</el-menu-item>
         <el-menu-item index="/webhook">{{$t('header.webhook')}}</el-menu-item>
         <el-menu-item index="/manager">{{$t('header.manager')}}</el-menu-item>
         <el-menu-item v-if="$route.name !== 'Login'" index="" @click="onLogout">{{$t('header.logout')}}</el-menu-item>

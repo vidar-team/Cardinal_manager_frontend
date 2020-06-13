@@ -19,6 +19,7 @@
     "gamebox": "Gamebox",
     "flag": "Flag",
     "bulletin": "Bulletin",
+    "asteroid": "Asteroid",
     "webhook": "WebHook",
     "manager": "Manager",
     "logout": "Log out"
