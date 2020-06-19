@@ -50,6 +50,11 @@ const router = new Router({
             name: 'WebHook',
             component: () => import('@/views/WebHook.vue')
         },
+        // {
+        //     path: '/config',
+        //     name: 'Config',
+        //     component: () => import('@/views/Config.vue')
+        // },
         {
             path: '/manager',
             name: 'Manager',

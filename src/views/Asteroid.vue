@@ -4,8 +4,11 @@
             <el-collapse-item title="Asteroid" name="1">
                 <div>{{$t('asteroid.intro')}}</div>
                 <div>
-                    <el-link type="primary" href="https://cardinal.ink/asteroid/" target="_blank">{{$t('asteroid.docs')}}</el-link>&nbsp;&nbsp;
-                    <el-link type="primary" href="https://github.com/wuhan005/Asteroid" target="_blank">{{$t('asteroid.github')}}
+                    <el-link type="primary" href="https://cardinal.ink/asteroid/" target="_blank">
+                        {{$t('asteroid.docs')}}
+                    </el-link>&nbsp;&nbsp;
+                    <el-link type="primary" href="https://github.com/wuhan005/Asteroid" target="_blank">
+                        {{$t('asteroid.github')}}
                     </el-link>
                 </div>
             </el-collapse-item>
@@ -148,8 +151,17 @@
         mounted() {
             this.getTeams()
             this.getTime()
+            // this.getStatus()
         },
         methods: {
+            // getStatus() {
+            //     this.utils.GET('/manager/asteroid/status').then(res => {
+            //         console.log(res)
+            //     }).catch(err => {
+            //         this.$message.error(err);
+            //     })
+            // },
+
             setRank() {
                 this.utils.POST('/manager/asteroid/rank').then(res => {
                     this.$message.success(res)

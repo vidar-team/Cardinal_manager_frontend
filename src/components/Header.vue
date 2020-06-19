@@ -10,6 +10,7 @@
         <el-menu-item index="/bulletin">{{$t('header.bulletin')}}</el-menu-item>
         <el-menu-item index="/asteroid">{{$t('header.asteroid')}}</el-menu-item>
         <el-menu-item index="/webhook">{{$t('header.webhook')}}</el-menu-item>
+<!--        <el-menu-item index="/config">{{$t('header.config')}}</el-menu-item>-->
         <el-menu-item index="/manager">{{$t('header.manager')}}</el-menu-item>
         <el-menu-item v-if="$route.name !== 'Login'" index="" @click="onLogout">{{$t('header.logout')}}</el-menu-item>
         <el-menu-item index="">

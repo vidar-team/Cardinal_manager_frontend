@@ -22,6 +22,7 @@
     "asteroid": "Asteroid 大屏管理",
     "webhook": "WebHook 管理",
     "manager": "账号管理",
+    "config": "配置管理",
     "logout": "登出"
   },
   "bulletin": {
@@ -193,5 +194,8 @@
     "type_game_begin": "比赛开始时",
     "type_game_pause": "比赛暂停时",
     "type_game_end": "比赛结束时"
+  },
+  "config": {
+    "title": "比赛名"
   }
 }
