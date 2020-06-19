@@ -39,6 +39,10 @@
                             </p>
                             <el-button slot="reference" size="mini">{{$t('panel.debug_info')}}</el-button>
                         </el-popover>
+                        <el-progress v-if="time !== null"
+                                     :text-inside="true"
+                                     :stroke-width="17"
+                                     :percentage="progressPercent"></el-progress>
                     </div>
                     <div class="system-log">
                         <div v-for="(log, index) in logs" v-bind:key="index">
@@ -67,7 +71,7 @@
                         </el-table-column>
                     </el-table>
                     <br>
-<!--                    <el-button size="mini" @click="exportRank">{{$t('panel.export_rank')}}</el-button>-->
+                    <!--                    <el-button size="mini" @click="exportRank">{{$t('panel.export_rank')}}</el-button>-->
                 </el-card>
                 <br>
                 <el-card>
@@ -183,6 +187,16 @@
                 // downloadElement.click()
                 // window.URL.revokeObjectURL(href)
             // }
+        },
+
+        computed: {
+            progressPercent() {
+                let percent = Number((((new Date().getTime() / 1000) - this.time.BeginTime) / (this.time.EndTime - this.time.BeginTime) * 100).toFixed(2))
+                if (percent > 100) {
+                    return 100
+                }
+                return percent
+            }
         }
     }
 </script>
