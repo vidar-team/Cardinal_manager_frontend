@@ -122,7 +122,7 @@
     export default {
         name: "Asteroid",
         data: () => ({
-            baseURL: `ws://${location.host}/asteroid`,
+            baseURL: `ws://${location.host}/api/asteroid`,
             teams: [],
 
             attackForm: {
