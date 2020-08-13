@@ -71,4 +71,8 @@ export default {
     FormatGoTime: (timeString) => {
         return new Date(timeString).toLocaleString()
     },
+
+    TimeStamp2String: (ts) => {
+        return new Date(ts * 1000).toLocaleString()
+    }
 }

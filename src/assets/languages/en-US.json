@@ -17,11 +17,13 @@
     "team": "Team",
     "challenge": "Challenge",
     "gamebox": "Gamebox",
+    "docker": "Container",
     "flag": "Flag",
     "bulletin": "Bulletin",
     "asteroid": "Asteroid",
     "webhook": "WebHook",
     "manager": "Manager",
+    "config": "Config",
     "logout": "Log out"
   },
   "bulletin": {
@@ -193,5 +195,12 @@
     "type_game_begin": "Game Begin",
     "type_game_pause": "Game Pause",
     "type_game_end": "Game End"
+  },
+  "config": {
+    "title": "Title",
+    "flag_prefix": "Flag Prefix",
+    "flag_suffix": "Flag Suffix",
+    "animate_asteroid": "More Animate Asteroid",
+    "show_others_gamebox": "Show Other Teams' GameBoxes"
   }
 }
