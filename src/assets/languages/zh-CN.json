@@ -17,9 +17,10 @@
     "team": "队伍管理",
     "challenge": "题目管理",
     "gamebox": "靶机管理",
+    "docker": "容器管理",
     "flag": "Flag 管理",
     "bulletin": "公告管理",
-    "asteroid": "Asteroid 大屏管理",
+    "asteroid": "大屏管理",
     "webhook": "WebHook 管理",
     "manager": "账号管理",
     "config": "配置管理",
@@ -196,6 +197,10 @@
     "type_game_end": "比赛结束时"
   },
   "config": {
-    "title": "比赛名"
+    "title": "比赛名",
+    "flag_prefix": "Flag 前缀",
+    "flag_suffix": "Flag 后缀",
+    "animate_asteroid": "更绚丽的 Asteroid 大屏",
+    "show_others_gamebox": "队伍靶机相互可见"
   }
 }

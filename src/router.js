@@ -30,6 +30,11 @@ const router = new Router({
             name: 'GameBox',
             component: () => import('@/views/GameBox.vue')
         },
+        // {
+        //     path: '/docker',
+        //     name: 'Docker',
+        //     component: () => import('@/views/Docker.vue')
+        // },
         {
             path: '/flag',
             name: 'Flag',
@@ -50,11 +55,11 @@ const router = new Router({
             name: 'WebHook',
             component: () => import('@/views/WebHook.vue')
         },
-        // {
-        //     path: '/config',
-        //     name: 'Config',
-        //     component: () => import('@/views/Config.vue')
-        // },
+        {
+            path: '/config',
+            name: 'Config',
+            component: () => import('@/views/Config.vue')
+        },
         {
             path: '/manager',
             name: 'Manager',
