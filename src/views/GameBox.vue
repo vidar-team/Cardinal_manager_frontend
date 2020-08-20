@@ -11,7 +11,7 @@
             </el-button>
             <el-dropdown-menu slot="dropdown">
                 <el-dropdown-item command="remote-gamebox">添加外部靶机</el-dropdown-item>
-                <el-dropdown-item command="from-docker">从镜像部署靶机</el-dropdown-item>
+                <!--                <el-dropdown-item command="from-docker">从镜像部署靶机</el-dropdown-item>-->
             </el-dropdown-menu>
         </el-dropdown>
         <el-button @click="testAllSSH" :loading="sshTesting">{{$t('gamebox.test_ssh')}}</el-button>
