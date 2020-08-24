@@ -98,7 +98,7 @@
                     Title: '',
                     BaseScore: 1000,
                     AutoRefreshFlag: false,
-                    Command: 'cat {{FLAG}} > /flag',
+                    Command: 'echo {{FLAG}} > /flag',
                 },
 
                 editChallengeForm: {
@@ -130,7 +130,7 @@
                         Title: '',
                         BaseScore: 1000,
                         AutoRefreshFlag: false,
-                        Command: 'cat {{FLAG}} > /flag',
+                        Command: 'echo {{FLAG}} > /flag',
                     }
                     this.getChallenges()
                     this.$message({message: res, type: 'success'})
