@@ -98,7 +98,7 @@
                     Title: '',
                     BaseScore: 1000,
                     AutoRefreshFlag: false,
-                    Command: 'cat {{FLAG}} > /flag',
+                    Command: 'echo {{FLAG}} > /flag',
                 },
 
                 editChallengeForm: {
