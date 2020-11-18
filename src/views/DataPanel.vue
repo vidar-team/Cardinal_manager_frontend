@@ -66,7 +66,8 @@
                                          :formatter="(row) => utils.FormatFloat(row.Score)"></el-table-column>
                         <el-table-column v-for="(header, index) in rankHeader" v-bind:key="index" :label="header">
                             <template scope="scope">
-                                {{utils.FormatFloat(scope.row.GameBoxStatus[index].Score)}}
+                                 <span :score="utils.FormatFloat(scope.row.GameBoxStatus[index].Score)"
+                                       :class="statusClass(scope.row.GameBoxStatus[index].IsAttacked, scope.row.GameBoxStatus[index].IsDown)">{{utils.FormatFloat(scope.row.GameBoxStatus[index].Score)}}</span>
                             </template>
                         </el-table-column>
                     </el-table>
@@ -177,16 +178,29 @@
 
             // exportRank() {
             //     this.getRank()
-                // let content = ''
-                //
-                // let blob = new Blob([JSON.stringify(res)], {type: 'text/plain'})
-                // let downloadElement = document.createElement("a")
-                // let href = window.URL.createObjectURL(blob)
-                // downloadElement.href = href
-                // downloadElement.download = name
-                // downloadElement.click()
-                // window.URL.revokeObjectURL(href)
+            // let content = ''
+            //
+            // let blob = new Blob([JSON.stringify(res)], {type: 'text/plain'})
+            // let downloadElement = document.createElement("a")
+            // let href = window.URL.createObjectURL(blob)
+            // downloadElement.href = href
+            // downloadElement.download = name
+            // downloadElement.click()
+            // window.URL.revokeObjectURL(href)
             // }
+
+            statusClass(attacked, down) {
+                if (attacked && down) {
+                    return 'status-double'
+                }
+                if (attacked) {
+                    return 'status-attacked'
+                }
+                if (down) {
+                    return 'status-down'
+                }
+                return 'status-normal'
+            }
         },
 
         computed: {
@@ -239,5 +253,31 @@
         text-align: center;
         color: #3f3f3f;
         font-size: 15px;
+    }
+
+    .status-normal {
+        color: green;
+    }
+
+    .status-down {
+        color: orange;
+    }
+
+    .status-attacked {
+        color: red;
+    }
+
+    .status-double {
+        color: red;
+        font-weight: 900;
+    }
+
+    .status-double::before {
+        position: absolute;
+        height: 30%;
+        content: attr(score);
+        overflow: hidden;
+        color: orange;
+        z-index: 999;
     }
 </style>
