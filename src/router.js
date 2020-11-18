@@ -30,11 +30,11 @@ const router = new Router({
             name: 'GameBox',
             component: () => import('@/views/GameBox.vue')
         },
-        {
-            path: '/docker',
-            name: 'Docker',
-            component: () => import('@/views/Docker.vue')
-        },
+        // {
+        //     path: '/docker',
+        //     name: 'Docker',
+        //     component: () => import('@/views/Docker.vue')
+        // },
         {
             path: '/flag',
             name: 'Flag',
