@@ -1,7 +1,43 @@
 <template>
     <div>
-        <el-button type="primary" @click="generateFlag">{{$t('flag.generate_flag')}}</el-button>
-        <el-button type="primary" @click="exportFlagDialogVisible = true">{{$t('flag.export_flag')}}</el-button>
+        <el-form :inline="true">
+            <el-form-item>
+                <el-button type="primary" @click="generateFlag">{{$t('flag.generate_flag')}}</el-button>
+            </el-form-item>
+            <el-form-item>
+                <el-button type="primary" @click="exportFlagDialogVisible = true">{{$t('flag.export_flag')}}</el-button>
+            </el-form-item>
+            <el-form-item></el-form-item>
+            <el-form-item label="轮数">
+                <el-input-number v-model="round" controls-position="right" :min="0" :max="10"></el-input-number>
+            </el-form-item>
+            <el-form-item label="队伍">
+                <el-select v-model="team" placeholder="选择队伍">
+                    <el-option
+                            v-for="item in teamList"
+                            :key="item.ID"
+                            :label="item.Name"
+                            :value="item.ID">
+                    </el-option>
+                </el-select>
+            </el-form-item>
+            <el-form-item label="题目">
+                <el-select v-model="challenge" placeholder="选择题目">
+                    <el-option
+                            v-for="item in challengeList"
+                            :key="item.ID"
+                            :label="item.Title"
+                            :value="item.ID">
+                    </el-option>
+                </el-select>
+            </el-form-item>
+            <el-form-item>
+                <el-button icon="el-icon-search" type="primary" round @click="()=> {page = 1; getFlags()}">筛选
+                </el-button>
+                <el-button round @click="cleanFilter">清除条件</el-button>
+            </el-form-item>
+        </el-form>
+
         <el-table :data="flagList" style="width: 100%" stripe v-loading="flagList === null">
             <el-table-column width="80" prop="ID" label="ID"/>
             <el-table-column width="80" prop="TeamID" :label="$t('flag.team')"/>
@@ -44,29 +80,61 @@
             total: 0,
             flagList: null,
 
+            teamList: [],
             challengeList: [],
             exportFlagDialogVisible: false,
             exportChallengeID: null,
 
+            totalRound: 0,
+
+            // Filter
+            round: 0,
+            team: null,
+            challenge: null,
         }),
 
         mounted() {
+            this.getTotalRound()
+            this.getTeams()
             this.getFlags()
             this.getChallenges()
         },
 
         methods: {
-            getFlags() {
-                this.utils.GET('/manager/flags?per=' + this.per + '&page=' + this.page).then(res => {
-                    this.flagList = res.array
-                    this.total = res.total
-                }).catch(err => this.$message({message: err, type: 'error'}))
+            getTeams() {
+                this.utils.GET("/manager/teams").then(res => {
+                    this.teamList = res
+                }).catch(err => this.$message.error(err))
             },
 
             getChallenges() {
                 this.utils.GET("/manager/challenges").then(res => {
                     this.challengeList = res
                 }).catch(err => this.$message.error(err))
+            },
+
+            getTotalRound() {
+                this.utils.GET('/time').then(res => {
+                    this.totalRound = res.TotalRound
+                }).catch(err => this.$message({message: err, type: 'error'}))
+            },
+
+            getFlags() {
+                let team = this.team || 0
+                let challenge = this.challenge || 0
+
+                this.utils.GET(`/manager/flags?per=${this.per}&page=${this.page}&round=${this.round}&team=${team}&challenge=${challenge}`).then(res => {
+                    this.flagList = res.array
+                    this.total = res.total
+                }).catch(err => this.$message({message: err, type: 'error'}))
+            },
+
+            cleanFilter() {
+                this.round = 0
+                this.team = null
+                this.challenge = null
+                this.page = 1
+                this.getFlags()
             },
 
             generateFlag() {
