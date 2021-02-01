@@ -127,7 +127,9 @@
     "test_ssh_success": "SSH Connect Successfully！",
     "test_ssh_fail": "Fail to Connect the SSH.",
     "input_shell_command": "Please input the shell command to test",
-    "refresh_flag": "Refresh all the flags"
+    "refresh_flag": "Refresh all the flags",
+    "reset": "Reset all gameboxes",
+    "reset_confirm": "This operation will reset all the gameboxes. Are you sure to continue?"
   },
   "login": {
     "account": "Account",
