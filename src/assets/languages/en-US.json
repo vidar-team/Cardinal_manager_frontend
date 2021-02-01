@@ -204,10 +204,12 @@
     "type_game_end": "Game End"
   },
   "config": {
+    "save": "Save",
     "title": "Title",
     "flag_prefix": "Flag Prefix",
     "flag_suffix": "Flag Suffix",
     "animate_asteroid": "More Animate Asteroid",
-    "show_others_gamebox": "Show Other Teams' GameBoxes"
+    "show_others_gamebox": "Show Other Teams' GameBoxes",
+    "default_language": "🌐 Default Language"
   }
 }

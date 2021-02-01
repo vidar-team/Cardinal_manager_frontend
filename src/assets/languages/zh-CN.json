@@ -204,10 +204,12 @@
     "type_game_end": "比赛结束时"
   },
   "config": {
+    "save": "保存配置",
     "title": "比赛名",
     "flag_prefix": "Flag 前缀",
     "flag_suffix": "Flag 后缀",
     "animate_asteroid": "更绚丽的 Asteroid 大屏",
-    "show_others_gamebox": "队伍靶机相互可见"
+    "show_others_gamebox": "队伍靶机相互可见",
+    "default_language": "🌐 默认语言 / Default Language"
   }
 }
