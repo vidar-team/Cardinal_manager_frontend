@@ -74,6 +74,10 @@
     "gamebox": "Gamebox",
     "round": "Round",
     "flag": "Flag",
+    "select_team": "Select Team...",
+    "select_challenge": "Select Challenge...",
+    "filter": "Filter",
+    "clean_filter": "Clean Filter",
     "confirm": "Confirm",
     "generate_flag_confirm": "This operation will delete all the existing flags and regenerate them. Are you sure to continue?",
     "export_flag": "Export Flag"
@@ -102,6 +106,7 @@
   "gamebox": {
     "add": "Add",
     "publish": "New Gamebox",
+    "publish_out": "New External Gamebox",
     "challenge": "Challenge",
     "team": "Team",
     "ip": "IP",
