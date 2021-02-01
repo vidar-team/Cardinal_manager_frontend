@@ -74,6 +74,10 @@
     "gamebox": "所属靶机",
     "round": "所属轮数",
     "flag": "Flag",
+    "select_team": "选择队伍",
+    "select_challenge": "选择题目",
+    "filter": "筛选",
+    "clean_filter": "清除筛选条件",
     "confirm": "请确认",
     "generate_flag_confirm": "此操作将删除现有的 Flag 并重新生成, 是否继续?",
     "export_flag": "导出题目 Flag"
@@ -102,6 +106,7 @@
   "gamebox": {
     "add": "新增",
     "publish": "添加新靶机",
+    "publish_out": "添加外部靶机",
     "challenge": "题目名",
     "team": "所属队伍",
     "ip": "题目 IP",
@@ -127,7 +132,9 @@
     "test_ssh_fail": "SSH 连接失败",
     "test_ssh_success": "SSH 连接全部成功！",
     "input_shell_command": "请输入需要测试的 Shell 命令",
-    "refresh_flag": "更新所有 Flag"
+    "refresh_flag": "更新所有 Flag",
+    "reset": "重置所有靶机分数",
+    "reset_confirm": "您确认重置所有靶机分数吗？"
   },
   "login": {
     "account": "账号",
@@ -197,10 +204,12 @@
     "type_game_end": "比赛结束时"
   },
   "config": {
+    "save": "保存配置",
     "title": "比赛名",
     "flag_prefix": "Flag 前缀",
     "flag_suffix": "Flag 后缀",
     "animate_asteroid": "更绚丽的 Asteroid 大屏",
-    "show_others_gamebox": "队伍靶机相互可见"
+    "show_others_gamebox": "队伍靶机相互可见",
+    "default_language": "🌐 默认语言 / Default Language"
   }
 }

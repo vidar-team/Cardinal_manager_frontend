@@ -74,6 +74,10 @@
     "gamebox": "Gamebox",
     "round": "Round",
     "flag": "Flag",
+    "select_team": "Select Team...",
+    "select_challenge": "Select Challenge...",
+    "filter": "Filter",
+    "clean_filter": "Clean Filter",
     "confirm": "Confirm",
     "generate_flag_confirm": "This operation will delete all the existing flags and regenerate them. Are you sure to continue?",
     "export_flag": "Export Flag"
@@ -102,6 +106,7 @@
   "gamebox": {
     "add": "Add",
     "publish": "New Gamebox",
+    "publish_out": "New External Gamebox",
     "challenge": "Challenge",
     "team": "Team",
     "ip": "IP",
@@ -127,7 +132,9 @@
     "test_ssh_success": "SSH Connect Successfully！",
     "test_ssh_fail": "Fail to Connect the SSH.",
     "input_shell_command": "Please input the shell command to test",
-    "refresh_flag": "Refresh all the flags"
+    "refresh_flag": "Refresh all the flags",
+    "reset": "Reset all gameboxes",
+    "reset_confirm": "This operation will reset all the gameboxes. Are you sure to continue?"
   },
   "login": {
     "account": "Account",
@@ -197,10 +204,12 @@
     "type_game_end": "Game End"
   },
   "config": {
+    "save": "Save",
     "title": "Title",
     "flag_prefix": "Flag Prefix",
     "flag_suffix": "Flag Suffix",
     "animate_asteroid": "More Animate Asteroid",
-    "show_others_gamebox": "Show Other Teams' GameBoxes"
+    "show_others_gamebox": "Show Other Teams' GameBoxes",
+    "default_language": "🌐 Default Language"
   }
 }
