@@ -107,6 +107,7 @@
     "add": "Add",
     "publish": "New Gamebox",
     "publish_out": "New External Gamebox",
+    "delete_title": "Are you sure to delete this gamebox?",
     "challenge": "Challenge",
     "team": "Team",
     "ip": "IP",

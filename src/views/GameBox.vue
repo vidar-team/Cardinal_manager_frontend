@@ -52,6 +52,17 @@
               @click="()=>{editGameBoxForm = JSON.parse(JSON.stringify(scope.row)); editGameBoxDialogVisible = true}">
             {{ $t('general.edit') }}
           </el-button>
+          <el-popconfirm
+              :confirmButtonText="$t('general.confirm_cancel')"
+              :cancelButtonText="$t('general.cancel')"
+              icon="el-icon-info"
+              iconColor="red"
+              :title="$t('gamebox.delete_title')"
+              @onConfirm="handleDelete(scope.row)"
+          >
+            <el-button size="mini" type="danger" slot="reference">{{ $t('general.delete') }}
+            </el-button>
+          </el-popconfirm>
         </template>
       </el-table-column>
     </el-table>
@@ -505,6 +516,16 @@ SSH 密码：{{ssh_password}}`,
         this.getGameBoxes()
         this.$message.success(res)
       }).catch(err => this.$message.error(err))
+    },
+
+    handleDelete(row) {
+      this.utils.DELETE("/manager/gamebox?id=" + row.ID).then(res => {
+        this.$message({
+          message: res,
+          type: 'success'
+        });
+        this.getGameBoxes()
+      }).catch(err => this.$message({message: err, type: 'error'}))
     },
 
     getChallengeByID(id) {
