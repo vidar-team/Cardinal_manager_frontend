@@ -107,6 +107,7 @@
     "add": "新增",
     "publish": "添加新靶机",
     "publish_out": "添加外部靶机",
+    "delete_title": "您确定删除这个靶机吗？",
     "challenge": "题目名",
     "team": "所属队伍",
     "ip": "题目 IP",
