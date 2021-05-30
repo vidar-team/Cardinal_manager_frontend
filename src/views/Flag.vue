@@ -9,7 +9,7 @@
       </el-form-item>
       <el-form-item></el-form-item>
       <el-form-item :label="$t('flag.round')">
-        <el-input-number v-model="round" controls-position="right" :min="0" :max="10"></el-input-number>
+        <el-input-number v-model="round" controls-position="right" :min="0"></el-input-number>
       </el-form-item>
       <el-form-item :label="$t('flag.team')">
         <el-select v-model="team" :placeholder="$t('flag.select_team')">
